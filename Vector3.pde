@@ -12,11 +12,15 @@ class Vector3 extends PVector {
     return "(" + nf(this.x) + ", " + nf(this.y) + ", " + nf(this.z) + ")";
   }
 
-  Vector3 plus(Vector3 other) {
-    return new Vector3(this.x + other.x, this.y + other.y, this.z + other.z);
-  }
+  // void normalize() {
+  //   super.normalize();
+  // }
 
-  Vector3 minus(Vector3 other) {
-    return new Vector3(this.x - other.x, this.y - other.y, this.z - other.z);
-  }
+  // Vector3 plus(Vector3 other) {
+  //   return new Vector3(this.x + other.x, this.y + other.y, this.z + other.z);
+  // }
+
+  // Vector3 minus(Vector3 other) {
+  //   return new Vector3(this.x - other.x, this.y - other.y, this.z - other.z);
+  // }
 }
