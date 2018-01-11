@@ -9,14 +9,14 @@ class Vector2 extends PVector {
   }
 
   String toString() {
-    return "(" + nf(this.x) + ", " + nf(this.y) + ")";
+    return "(" + nfs(this.x, 1, 6) + ", " + nfs(this.y, 1, 6) + ")";
   }
 
-  Vector2 plus(Vector2 other) {
-    return new Vector2(this.x + other.x, this.y + other.y);
-  }
+  // Vector2 plus(Vector2 other) {
+  //   return new Vector2(this.x + other.x, this.y + other.y);
+  // }
 
-  Vector2 minus(Vector2 other) {
-    return new Vector2(this.x - other.x, this.y - other.y);
-  }
+  // Vector2 minus(Vector2 other) {
+  //   return new Vector2(this.x - other.x, this.y - other.y);
+  // }
 }

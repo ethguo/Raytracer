@@ -10,4 +10,8 @@ class Ray {
   String toString() {
     return this.origin.toString() + " + t" + this.direction.toString();
   }
+
+  Vector3 solve(float t) {
+    return this.origin.plus(this.direction.times(t));
+  }
 }
