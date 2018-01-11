@@ -1,4 +1,4 @@
-class Sphere {
+class Sphere extends SceneObject {
   Vector3 center;
   float radius;
   float radiusSquared;
@@ -29,7 +29,12 @@ class Sphere {
     else
       t = hits.x;
 
-    printt(t);
     return t;
+  }
+
+  Vector3 getNormal(Vector3 point) {
+    Vector3 normal = point.minus(this.center);
+    normal.normalize();
+    return normal;
   }
 }
