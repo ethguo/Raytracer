@@ -23,7 +23,7 @@ class Ray {
     this.tHit = Float.POSITIVE_INFINITY;
     for (SceneObject sceneObject : sceneObjects) {
       float tHitObject = sceneObject.rayIntersect(this);
-      if (tHitObject != 0 && tHitObject < this.tHit) {
+      if (tHitObject > 0 && tHitObject < this.tHit) {
         this.tHit = tHitObject;
         this.hitObject = sceneObject;
       }

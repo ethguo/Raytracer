@@ -3,7 +3,7 @@ int imageHeight = 400;
 float fov = 75;
 Vector3 origin = new Vector3(0, 0, 0);
 color skyColor = #8CBED6;
-float shadowBias = 0.0001;
+float shadowBias = 1e-4;
 
 float imagePixelWidth;
 float imagePixelHeight;
@@ -11,7 +11,8 @@ float imagePixelHeight;
 SceneObject[] sceneObjects = new SceneObject[] {
   new Sphere(new Vector3(0, -0.5, -3), 1, 0.9),
   new Sphere(new Vector3(1, 0.5, -4), 1, 0.9),
-  new Sphere(new Vector3(-1, 0, -2), 0.25, 0.9)
+  new Sphere(new Vector3(-1, 0, -2), 0.2, 0.9),
+  new Plane(new Vector3(0, -1, 0), new Vector3(0, 1, 0), 0.9)
 };
 
 Light[] lights = new Light[] {
