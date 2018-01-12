@@ -39,9 +39,9 @@ void draw() {
     for (int imageX = 0; imageX < imageWidth; imageX++) {
       Ray primaryRay = getPrimaryRay(imageX, imageY);
 
-      RayCastHit hit = castRay(primaryRay);
-      if (hit != null) {
-        Vector3 pointShading = getPointShading(hit);
+      boolean hit = primaryRay.cast(sceneObjects);
+      if (hit) {
+        Vector3 pointShading = primaryRay.getPointShading(lights);
         fill(pointShading.toColor());
         rect(imageX * imagePixelWidth, imageY * imagePixelHeight, imagePixelWidth, imagePixelHeight);
       }
@@ -49,7 +49,7 @@ void draw() {
   }
 
   int elapsedTime = millis() - t0;
-  println(elapsedTime);
+  println("Elapsed time: " + elapsedTime + " ms");
 
   // updatePixels();
 }
@@ -64,47 +64,6 @@ Ray getPrimaryRay(int imageX, int imageY) {
   direction.normalize();
 
   return new Ray(origin, direction);
-}
-
-RayCastHit castRay(Ray ray) {
-  float tMin = Float.POSITIVE_INFINITY;
-  SceneObject hitObject = null;
-  for (SceneObject sceneObject : sceneObjects) {
-    float tHit = sceneObject.rayIntersect(ray);
-    if (tHit != 0 && tHit < tMin) {
-      tMin = tHit;
-      hitObject = sceneObject;
-    }
-  }
-
-  if (hitObject == null)
-    return null;
-
-  Vector3 hitPoint = ray.solve(tMin);
-  RayCastHit hit = new RayCastHit(hitObject, tMin, hitPoint);
-  return hit;
-}
-
-
-Vector3 getPointShading(RayCastHit hit) {
-  Vector3 normal = hit.sceneObject.getNormal(hit.point);
-
-  // Facing Ratio shading method
-  // hit.colour = max(0, -ray.direction.dot(normal)) * 255;
-
-  Vector3 pointShading = new Vector3();
-
-  for (Light light : lights) {
-    float lightIntensity = light.getIntensity(hit.point);
-    Vector3 lightDirection = light.getDirection(hit.point);
-
-    float intensity = lightIntensity
-                    * hit.sceneObject.albedo / PI
-                    * max(0, -normal.dot(lightDirection));
-
-    pointShading = pointShading.plus(light.colour.times(intensity));
-  }
-  return pointShading;
 }
 
 // Next: https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/ligth-and-shadows
