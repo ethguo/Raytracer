@@ -1,4 +1,6 @@
 abstract class SceneObject {
-  abstract float rayHit(Ray ray);
+  float albedo;
+
+  abstract float rayIntersect(Ray ray);
   abstract Vector3 getNormal(Vector3 point);
 }

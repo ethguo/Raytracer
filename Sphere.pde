@@ -3,17 +3,18 @@ class Sphere extends SceneObject {
   float radius;
   float radiusSquared;
 
-  Sphere(Vector3 center, float radius) {
+  Sphere(Vector3 center, float radius, float albedo) {
     this.center = center;
     this.radius = radius;
     this.radiusSquared = radius * radius;
+    this.albedo = albedo;
   }
 
-  float rayHit(Ray ray) {
+  float rayIntersect(Ray ray) {
     Vector3 co = ray.origin.minus(this.center);
 
     float a = ray.direction.dotSelf();
-    float b = 2 * ray.direction.dotProduct(co);
+    float b = 2 * ray.direction.dot(co);
     float c = co.dotSelf() - radiusSquared;
 
     Vector2 hits = solveQuadratic(a, b, c);
