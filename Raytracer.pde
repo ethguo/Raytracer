@@ -4,7 +4,6 @@ float fov = 75;
 Vector3 origin = new Vector3(0, 0, 0);
 color skyColor = #8CBED6;
 
-float fovRad;
 float imagePixelWidth;
 float imagePixelHeight;
 
@@ -22,7 +21,6 @@ Light[] lights = new Light[] {
 void setup() {
   size(400, 400);
 
-  fovRad = fov * PI / 180;
   imagePixelWidth = width / imageWidth;
   imagePixelHeight = height / imageHeight;
 
@@ -31,6 +29,7 @@ void setup() {
 
 void draw() {
   // loadPixels();
+  int t0 = millis();
 
   background(skyColor);
   fill(255);
@@ -42,16 +41,22 @@ void draw() {
 
       RayCastHit hit = castRay(primaryRay);
       if (hit != null) {
-        fill(hit.colour.toColor());
+        Vector3 pointShading = getPointShading(hit);
+        fill(pointShading.toColor());
         rect(imageX * imagePixelWidth, imageY * imagePixelHeight, imagePixelWidth, imagePixelHeight);
       }
     }
   }
 
+  int elapsedTime = millis() - t0;
+  println(elapsedTime);
+
   // updatePixels();
 }
 
 Ray getPrimaryRay(int imageX, int imageY) {
+  float fovRad = fov * PI / 180;
+
   float cameraPlaneX = (2 * (imageX + 0.5) / (imageWidth) - 1) * tan(fovRad/2);
   float cameraPlaneY = -(2 * (imageY + 0.5) / (imageHeight) - 1) * tan(fovRad/2);
 
@@ -75,26 +80,31 @@ RayCastHit castRay(Ray ray) {
   if (hitObject == null)
     return null;
 
-  RayCastHit hit = new RayCastHit(hitObject);
-
   Vector3 hitPoint = ray.solve(tMin);
-  Vector3 normal = hitObject.getNormal(hitPoint);
+  RayCastHit hit = new RayCastHit(hitObject, tMin, hitPoint);
+  return hit;
+}
+
+
+Vector3 getPointShading(RayCastHit hit) {
+  Vector3 normal = hit.sceneObject.getNormal(hit.point);
 
   // Facing Ratio shading method
   // hit.colour = max(0, -ray.direction.dot(normal)) * 255;
 
+  Vector3 pointShading = new Vector3();
+
   for (Light light : lights) {
-    float lightIntensity = light.getIntensity(hitPoint);
-    Vector3 lightDirection = light.getDirection(hitPoint);
+    float lightIntensity = light.getIntensity(hit.point);
+    Vector3 lightDirection = light.getDirection(hit.point);
 
     float intensity = lightIntensity
-                    * hitObject.albedo / PI
+                    * hit.sceneObject.albedo / PI
                     * max(0, -normal.dot(lightDirection));
-    hit.colour = hit.colour.plus(light.colour.times(intensity));
-    // println(hit.colour);
-  }
 
-  return hit;
+    pointShading = pointShading.plus(light.colour.times(intensity));
+  }
+  return pointShading;
 }
 
 // Next: https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/ligth-and-shadows

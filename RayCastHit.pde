@@ -1,9 +1,11 @@
 class RayCastHit {
-  SceneObject hitObject;
-  Vector3 colour;
+  SceneObject sceneObject;
+  float t;
+  Vector3 point;
 
-  RayCastHit(SceneObject hitObject) {
-    this.hitObject = hitObject;
-    this.colour = new Vector3();
+  RayCastHit(SceneObject sceneObject, float t, Vector3 point) {
+    this.sceneObject = sceneObject;
+    this.t = t;
+    this.point = point;
   }
 }
