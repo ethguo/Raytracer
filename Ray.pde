@@ -19,7 +19,7 @@ class Ray {
     return this.origin.plus(this.direction.times(t));
   }
 
-  boolean cast(SceneObject[] sceneObjects) {
+  boolean cast() {
     this.tHit = Float.POSITIVE_INFINITY;
     for (SceneObject sceneObject : sceneObjects) {
       float tHitObject = sceneObject.rayIntersect(this);
@@ -36,7 +36,7 @@ class Ray {
     return true;
   }
 
-  Vector3 getPointShading(Light[] lights) {
+  Vector3 getPointShading() {
     Vector3 normal = this.hitObject.getNormal(this.hitPoint);
 
     // Facing Ratio shading method
@@ -49,11 +49,15 @@ class Ray {
       Vector3 lightDirection = light.getDirection(this.hitPoint);
       Vector3 negLightDirection = lightDirection.times(-1);
 
-      float intensity = lightIntensity
-                      * this.hitObject.albedo / PI
-                      * max(0, normal.dot(negLightDirection));
+      Ray shadowRay = new Ray(this.hitPoint.plus(normal.times(shadowBias)), negLightDirection);
+      boolean shadow = shadowRay.cast();
+      if (!shadow) {
+        float intensity = lightIntensity
+                        * this.hitObject.albedo / PI
+                        * max(0, normal.dot(negLightDirection));
 
-      pointShading = pointShading.plus(light.colour.times(intensity));
+        pointShading = pointShading.plus(light.colour.times(intensity));
+      }
     }
     return pointShading;
   }

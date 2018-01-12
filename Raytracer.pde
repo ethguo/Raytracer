@@ -3,6 +3,7 @@ int imageHeight = 400;
 float fov = 75;
 Vector3 origin = new Vector3(0, 0, 0);
 color skyColor = #8CBED6;
+float shadowBias = 0.0001;
 
 float imagePixelWidth;
 float imagePixelHeight;
@@ -39,9 +40,9 @@ void draw() {
     for (int imageX = 0; imageX < imageWidth; imageX++) {
       Ray primaryRay = getPrimaryRay(imageX, imageY);
 
-      boolean hit = primaryRay.cast(sceneObjects);
+      boolean hit = primaryRay.cast();
       if (hit) {
-        Vector3 pointShading = primaryRay.getPointShading(lights);
+        Vector3 pointShading = primaryRay.getPointShading();
         fill(pointShading.toColor());
         rect(imageX * imagePixelWidth, imageY * imagePixelHeight, imagePixelWidth, imagePixelHeight);
       }
