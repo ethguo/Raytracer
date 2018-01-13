@@ -12,7 +12,7 @@ SceneObject[] sceneObjects = new SceneObject[] {
   new Sphere(new Vector3(0, -0.5, -3), 1, 0.9),
   new Sphere(new Vector3(1, 0.5, -4), 1, 0.9),
   new Sphere(new Vector3(-1, 0, -2), 0.2, 0.9),
-  new Plane(new Vector3(0, -1, 0), new Vector3(0, 1, 0), 0.9)
+  new Plane(new Vector3(0, -1.5, 0), new Vector3(0, 1, 0), 0.9)
 };
 
 Light[] lights = new Light[] {
@@ -34,11 +34,13 @@ void draw() {
   int t0 = millis();
 
   background(skyColor);
-  fill(255);
+  // drawGrid(imagePixelWidth, imagePixelWidth);
+
   noStroke();
 
   for (int imageY = 0; imageY < imageHeight; imageY++) {
     for (int imageX = 0; imageX < imageWidth; imageX++) {
+      // print("Pixel[" + imageX + ", " + imageY + "] ");
       Ray primaryRay = getPrimaryRay(imageX, imageY);
 
       boolean hit = primaryRay.cast();
@@ -48,6 +50,7 @@ void draw() {
         rect(imageX * imagePixelWidth, imageY * imagePixelHeight, imagePixelWidth, imagePixelHeight);
       }
     }
+    // println();
   }
 
   int elapsedTime = millis() - t0;
@@ -66,6 +69,15 @@ Ray getPrimaryRay(int imageX, int imageY) {
   direction.normalize();
 
   return new Ray(origin, direction);
+}
+
+void drawGrid(float cellWidth, float cellHeight) {
+  stroke(0);
+  for (int x = 0; x < width; x += cellWidth)
+    line(x, 0, x, height);
+
+  for (int y = 0; y < height; y += cellHeight)
+    line(0, y, width, y);
 }
 
 // Next: https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/ligth-and-shadows

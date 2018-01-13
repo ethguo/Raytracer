@@ -9,12 +9,13 @@ class Plane extends SceneObject {
   }
 
   float rayIntersect(Ray ray) {
-    float theta = this.normal.dot(ray.direction);
-    if (theta < 1e-6)
+    float cosTheta = -this.normal.dot(ray.direction);
+
+    if (cosTheta < 1e-6)
       return 0;
 
-    Vector3 po = this.point.minus(ray.origin);
-    float t = po.dot(this.normal) / theta;
+    Vector3 po = ray.origin.minus(this.point);
+    float t = po.dot(this.normal) / cosTheta;
     return t;
   }
 
