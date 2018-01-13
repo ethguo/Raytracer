@@ -1,5 +1,5 @@
 int imageWidth = 400;
-int imageHeight = 400;
+int imageHeight = 300;
 float fov = 75;
 Vector3 origin = new Vector3(0, 0, 0);
 color skyColor = #8CBED6;
@@ -10,9 +10,9 @@ float imagePixelHeight;
 
 SceneObject[] sceneObjects = new SceneObject[] {
   new Sphere(new Vector3(0, -1, -4), 1, 0.9),
-  new Sphere(new Vector3(1, 0, -7), 2, 0.75),
+  new Sphere(new Vector3(1, 0, -7), 2, 0.8),
   new Sphere(new Vector3(-1, 1.5, -5), 0.33, 0.9),
-  new Plane(new Vector3(0, -2, 0), new Vector3(0, 1, 0), 0.9)
+  new Plane(new Vector3(0, -2, 0), new Vector3(0, 1, 0), 0.6)
 };
 
 Light[] lights = new Light[] {
@@ -22,7 +22,7 @@ Light[] lights = new Light[] {
 };
 
 void setup() {
-  size(400, 400);
+  size(400, 300);
 
   imagePixelWidth = width / imageWidth;
   imagePixelHeight = height / imageHeight;
@@ -63,7 +63,9 @@ void draw() {
 Ray getPrimaryRay(int imageX, int imageY) {
   float fovRad = fov * PI / 180;
 
-  float cameraPlaneX = (2 * (imageX + 0.5) / (imageWidth) - 1) * tan(fovRad/2);
+  float aspectRatio = (float) imageWidth / imageHeight;
+
+  float cameraPlaneX = (2 * (imageX + 0.5) / (imageWidth) - 1) * aspectRatio * tan(fovRad/2);
   float cameraPlaneY = -(2 * (imageY + 0.5) / (imageHeight) - 1) * tan(fovRad/2);
 
   Vector3 direction = new Vector3(cameraPlaneX, cameraPlaneY, -1);
