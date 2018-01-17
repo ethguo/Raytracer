@@ -1,4 +1,6 @@
-abstract class Parameter<T> {
-  abstract T getValue();
-  abstract void createGUIControls(GWindow window, int y);
+abstract class Parameter {
+  Tweaker tweaker;
+  
+  abstract Object getValue();
+  abstract int createGUIControls(GWindow window, int y); // Returns next y
 }

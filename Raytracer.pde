@@ -1,3 +1,5 @@
+import java.util.Map;
+import java.util.LinkedHashMap;
 import g4p_controls.*;
 
 int imageWidth = 600;
@@ -23,12 +25,15 @@ Light[] lights = new Light[] {
   new DirectionalLight(new Vector3(-1, -0.5, -0.5).normalized(), #3399FF, 1.5),
 };
 
-Map<String, Parameter> parameters = new LinkedHashmap<String, Parameter>();
-parameters.put("fov", new NumberParameter<float>(75, 5, 175));
-
 void setup() {
   size(600, 600);
-  createGUI_();
+  surface.setTitle("Raytracer");
+
+  Tweaker tweaker = new Tweaker(this);
+  tweaker.addParameter("fov", new FloatParameter(75.0, 5.0, 175.0));
+  // tweaker.addParameter("obj1_position", new VectorParameter<Vector3>(75, 5, 175));
+
+  tweaker.draw();
 
   imagePixelWidth = width / imageWidth;
   imagePixelHeight = height / imageHeight;
@@ -58,11 +63,10 @@ void draw() {
       }
     }
   }
+  updatePixels();
 
   int elapsedTime = millis() - t0;
   println("Elapsed time: " + elapsedTime + " ms");
-
-  updatePixels();
 }
 
 Ray getPrimaryRay(int imageX, int imageY) {
@@ -86,26 +90,6 @@ void drawGrid(float cellWidth, float cellHeight) {
 
   for (int y = 0; y < height; y += cellHeight)
     line(0, y, width, y);
-}
-
-public void createGUI_(){
-  G4P.messagesEnabled(false);
-  G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
-  G4P.setCursor(ARROW);
-  surface.setTitle("Raytracer");
-  update_timer = new GTimer(this, this, "update_timer_trigger", 500);
-  controls_window = GWindow.getWindow(this, "Controls", 10, 10, 300, 600, JAVA2D);
-  controls_window.noLoop();
-  controls_window.setActionOnClose(G4P.EXIT_APP);
-  controls_window.addDrawHandler(this, "controls_window_draw");
-
-  for(Map.Entry<String, Parameter> entry : parameters.entrySet()) {
-    String name = entry.getKey();
-    Parameter parameter = entry.getValue();
-    GAbstractControl control = parameter.createGUIControls(y);
-    
-  }
-  controls_window.loop();
 }
 
 // Next: https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/ligth-and-shadows
