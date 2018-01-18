@@ -1,4 +1,4 @@
-abstract class Parameter {
+public abstract class Parameter {
   Tweaker tweaker;
   
   abstract Object getValue();

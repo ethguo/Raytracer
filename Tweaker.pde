@@ -1,12 +1,13 @@
-class Tweaker {
+public class Tweaker {
   private PApplet applet;
-  private Map<String, Parameter> parameters = new LinkedHashMap<String, Parameter>();
+  private Map<String, Parameter> parameters;
 
   private GWindow tweakerWindow;
   private GTimer updateTimer;
 
   Tweaker(PApplet applet) {
     this.applet = applet;
+    this.parameters = new LinkedHashMap<String, Parameter>();
   }
 
   void draw() {
@@ -14,20 +15,20 @@ class Tweaker {
     G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
     G4P.setCursor(ARROW);
 
-    this.tweakerWindow = GWindow.getWindow(applet, "Tweaker", 10, 10, 300, 600, JAVA2D);
+    this.tweakerWindow = GWindow.getWindow(this.applet, "Tweaker", 10, 10, 300, 600, JAVA2D);
     this.tweakerWindow.noLoop();
     this.tweakerWindow.setActionOnClose(G4P.EXIT_APP);
-    // this.tweakerWindow.addDrawHandler(this, "tweakerWindowDraw");
-    this.tweakerWindow.loop();
+    this.tweakerWindow.addDrawHandler(this, "tweakerWindowDraw");
 
-    this.updateTimer = new GTimer(applet, this, "updateTimerTrigger", 500, 500);
+    this.updateTimer = new GTimer(this.applet, this, "updateTimerTrigger", 500, 500);
 
     int y = 20;
-    for(Map.Entry<String, Parameter> entry : parameters.entrySet()) {
+    for(Map.Entry<String, Parameter> entry : this.parameters.entrySet()) {
       String name = entry.getKey();
       Parameter parameter = entry.getValue();
       y = parameter.createGUIControls(this.tweakerWindow, y);
     }
+
     this.tweakerWindow.loop();
   }
 

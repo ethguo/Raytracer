@@ -1,4 +1,4 @@
-class FloatParameter extends Parameter {
+public class FloatParameter extends Parameter {
   private float value;
   private float minValue;
   private float maxValue;
