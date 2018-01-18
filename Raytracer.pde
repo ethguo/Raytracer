@@ -2,28 +2,7 @@ import java.util.Map;
 import java.util.LinkedHashMap;
 import g4p_controls.*;
 
-int imageWidth = 600;
-int imageHeight = 600;
-float fov = 75;
-Vector3 origin = new Vector3(0, 0, 0);
-color skyColor = #8CBED6;
-float shadowBias = 1e-4;
-
-float imagePixelWidth;
-float imagePixelHeight;
-
-SceneObject[] sceneObjects = new SceneObject[] {
-  new Sphere(new Vector3(0, -1, -4), 1, 0.9),
-  new Sphere(new Vector3(1, 0, -7), 2, 0.8),
-  new Sphere(new Vector3(-1, 1.5, -5), 0.33, 0.9),
-  new Plane(new Vector3(0, -2, 0), new Vector3(0, 1, 0), 0.6)
-};
-
-Light[] lights = new Light[] {
-  new DirectionalLight(new Vector3(0, -1, 0).normalized(), #CCCCCC, 1),
-  new DirectionalLight(new Vector3(1, -1, -1).normalized(), #FFCC99, PI),
-  new DirectionalLight(new Vector3(-1, -0.5, -0.5).normalized(), #3399FF, 1.5),
-};
+Scene scene = new Scene();
 
 void setup() {
   size(600, 600);
@@ -35,21 +14,19 @@ void setup() {
 
   tweaker.draw();
 
-  imagePixelWidth = width / imageWidth;
-  imagePixelHeight = height / imageHeight;
-
   noLoop();
 }
 
 void draw() {
-  loadPixels();
   int t0 = millis();
+
+  loadPixels();
 
   // drawGrid(imagePixelWidth, imagePixelWidth);
   // noStroke();
 
-  for (int imageY = 0; imageY < imageHeight; imageY++) {
-    for (int imageX = 0; imageX < imageWidth; imageX++) {
+  for (int imageY = 0; imageY < height; imageY++) {
+    for (int imageX = 0; imageX < width; imageX++) {
       // print("Pixel[" + imageX + ", " + imageY + "] ");
       Ray primaryRay = getPrimaryRay(imageX, imageY);
 
@@ -59,10 +36,11 @@ void draw() {
         pixels[imageY*width+imageX] = pointShading.toColor();
       }
       else {
-        pixels[imageY*width+imageX] = skyColor;
+        pixels[imageY*width+imageX] = scene.skyColor;
       }
     }
   }
+
   updatePixels();
 
   int elapsedTime = millis() - t0;
@@ -70,17 +48,17 @@ void draw() {
 }
 
 Ray getPrimaryRay(int imageX, int imageY) {
-  float fovRad = fov * PI / 180;
+  float fovRad = scene.fov * PI / 180;
 
-  float aspectRatio = (float) imageWidth / imageHeight;
+  float aspectRatio = (float) width / height;
 
-  float cameraPlaneX = (2 * (imageX + 0.5) / (imageWidth) - 1) * aspectRatio * tan(fovRad/2);
-  float cameraPlaneY = -(2 * (imageY + 0.5) / (imageHeight) - 1) * tan(fovRad/2);
+  float cameraPlaneX = (2 * (imageX + 0.5) / (width) - 1) * aspectRatio * tan(fovRad/2);
+  float cameraPlaneY = -(2 * (imageY + 0.5) / (height) - 1) * tan(fovRad/2);
 
   Vector3 direction = new Vector3(cameraPlaneX, cameraPlaneY, -1);
   direction.normalize();
 
-  return new Ray(origin, direction);
+  return new Ray(scene.origin, direction);
 }
 
 void drawGrid(float cellWidth, float cellHeight) {
