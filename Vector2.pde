@@ -1,9 +1,9 @@
 class Vector2 extends PVector {
 
-  Vector2(int x, int y) {
-    super(x, y);
+  Vector2() {
+    super(0.0, 0.0);
   }
-
+  
   Vector2(float x, float y) {
     super(x, y);
   }

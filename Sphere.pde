@@ -10,6 +10,13 @@ class Sphere extends SceneObject {
     this.albedo = albedo;
   }
 
+  Sphere(JSONObject j) {
+    this.center = new Vector3(j.getJSONObject("center"));
+    this.radius = j.getFloat("radius");
+    this.radiusSquared = this.radius * this.radius;
+    this.albedo = j.getFloat("albedo");
+  }
+
   float rayIntersect(Ray ray) {
     Vector3 co = ray.origin.minus(this.center);
 

@@ -5,16 +5,17 @@ class Vector3 extends PVector {
     super(0.0, 0.0, 0.0);
   }
   
-  // Vector3(int x, int y, int z) {
-  //   super(x, y, z);
-  // }
-
   Vector3(float x, float y, float z) {
     super(x, y, z);
   }
 
+  Vector3(JSONObject j) {
+    this.x = j.getFloat("x");
+    this.y = j.getFloat("y");
+    this.z = j.getFloat("z");
+  }
+
   Vector3(color colour) {
-    super(0.0, 0.0, 0.0);
     this.x = (colour >> 16 & 0xFF) / 255.0;
     this.y = (colour >> 8 & 0xFF) / 255.0;
     this.z = (colour & 0xFF) / 255.0;

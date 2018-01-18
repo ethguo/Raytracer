@@ -2,13 +2,16 @@ import java.util.Map;
 import java.util.LinkedHashMap;
 import g4p_controls.*;
 
-Scene scene = new Scene();
+Scene scene;
+Tweaker tweaker;
 
 void setup() {
   size(600, 600);
   surface.setTitle("Raytracer");
 
-  Tweaker tweaker = new Tweaker(this);
+  scene = new Scene();
+
+  tweaker = new Tweaker(this);
   tweaker.addParameter("fov", new FloatParameter(75.0, 5.0, 175.0));
   // tweaker.addParameter("obj1_position", new VectorParameter<Vector3>(75, 5, 175));
 
