@@ -17,6 +17,13 @@ class Sphere extends SceneObject {
     this.albedo = j.getFloat("albedo");
   }
 
+  JSONObject toJSONObject() {
+    JSONObject j = new JSONObject();
+    j.setJSONObject("center", this.center.toJSONObject());
+    j.setFloat("radius", this.radius);
+    j.setFloat("albedo", this.albedo);
+  }
+
   float rayIntersect(Ray ray) {
     Vector3 co = ray.origin.minus(this.center);
 

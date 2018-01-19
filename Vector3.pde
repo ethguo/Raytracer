@@ -9,16 +9,16 @@ class Vector3 extends PVector {
     super(x, y, z);
   }
 
-  Vector3(JSONObject j) {
-    this.x = j.getFloat("x");
-    this.y = j.getFloat("y");
-    this.z = j.getFloat("z");
-  }
-
   Vector3(color colour) {
     this.x = (colour >> 16 & 0xFF) / 255.0;
     this.y = (colour >> 8 & 0xFF) / 255.0;
     this.z = (colour & 0xFF) / 255.0;
+  }
+
+  Vector3(JSONObject j) {
+    this.x = j.getFloat("x");
+    this.y = j.getFloat("y");
+    this.z = j.getFloat("z");
   }
 
   String toString() {
@@ -26,6 +26,14 @@ class Vector3 extends PVector {
     if (this.isNormalized)
       s += "^";
     return s;
+  }
+
+  JSONObject toJSONObject() {
+    JSONObject j = new JSONObject();
+    j.setFloat("x", this.x);
+    j.setFloat("y", this.y);
+    j.setFloat("z", this.z);
+
   }
 
   color toColor() {
