@@ -1,11 +1,24 @@
 class DirectionalLight extends Light {
-  Vector3 direction;
-  float intensity;
+  public Vector3 direction;
+  public float intensity;
 
   DirectionalLight(Vector3 direction, color colour, float intensity) {
-    this.direction = direction;
+    super(colour);
+    this.direction = direction.normalize();
     this.intensity = intensity;
-    this.colour = new Vector3(colour);
+  }
+
+  DirectionalLight(JSONObject j) {
+    super(j);
+    this.direction = new Vector3(j.getJSONObject("direction"));
+    this.intensity = j.getFloat("intensity");
+  }
+
+  JSONObject toJSONObject() {
+    JSONObject j = super.toJSONObject();
+    j.setJSONObject("direction", this.direction.toJSONObject());
+    j.setFloat("intensity", this.intensity);
+    return j;
   }
 
   Vector3 getDirection(Vector3 point) {
@@ -14,4 +27,5 @@ class DirectionalLight extends Light {
   float getIntensity(Vector3 point) {
     return this.intensity;
   }
+
 }

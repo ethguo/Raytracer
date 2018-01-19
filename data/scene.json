@@ -1,0 +1,118 @@
+{
+  "skyColor": {
+    "x": 0.5490196347236633,
+    "y": 0.7450980544090271,
+    "z": 0.8392156958580017,
+    "type": "Vector3"
+  },
+  "origin": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "type": "Vector3"
+  },
+  "sceneObjects": [
+    {
+      "center": {
+        "x": 0,
+        "y": -1,
+        "z": -4,
+        "type": "Vector3"
+      },
+      "type": "Sphere",
+      "radius": 1,
+      "albedo": 0.8999999761581421
+    },
+    {
+      "center": {
+        "x": 1,
+        "y": 0,
+        "z": -7,
+        "type": "Vector3"
+      },
+      "type": "Sphere",
+      "radius": 2,
+      "albedo": 0.800000011920929
+    },
+    {
+      "center": {
+        "x": -1,
+        "y": 1.5,
+        "z": -5,
+        "type": "Vector3"
+      },
+      "type": "Sphere",
+      "radius": 0.33000001311302185,
+      "albedo": 0.8999999761581421
+    },
+    {
+      "normal": {
+        "x": 0,
+        "y": 1,
+        "z": 0,
+        "type": "Vector3"
+      },
+      "type": "Plane",
+      "point": {
+        "x": 0,
+        "y": -2,
+        "z": 0,
+        "type": "Vector3"
+      },
+      "albedo": 0.6000000238418579
+    }
+  ],
+  "shadowBias": 9.999999747378752E-5,
+  "type": "Scene",
+  "fov": 75,
+  "lights": [
+    {
+      "intensity": 1,
+      "colour": {
+        "x": 0.800000011920929,
+        "y": 0.800000011920929,
+        "z": 0.800000011920929,
+        "type": "Vector3"
+      },
+      "type": "DirectionalLight",
+      "direction": {
+        "x": 0,
+        "y": -1,
+        "z": 0,
+        "type": "Vector3"
+      }
+    },
+    {
+      "intensity": 3.1415927410125732,
+      "colour": {
+        "x": 1,
+        "y": 0.800000011920929,
+        "z": 0.6000000238418579,
+        "type": "Vector3"
+      },
+      "type": "DirectionalLight",
+      "direction": {
+        "x": 0.5773502588272095,
+        "y": -0.5773502588272095,
+        "z": -0.5773502588272095,
+        "type": "Vector3"
+      }
+    },
+    {
+      "intensity": 1.5,
+      "colour": {
+        "x": 0.20000000298023224,
+        "y": 0.6000000238418579,
+        "z": 1,
+        "type": "Vector3"
+      },
+      "type": "DirectionalLight",
+      "direction": {
+        "x": -0.8164965510368347,
+        "y": -0.40824827551841736,
+        "z": -0.40824827551841736,
+        "type": "Vector3"
+      }
+    }
+  ]
+}

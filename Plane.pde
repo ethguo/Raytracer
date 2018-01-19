@@ -1,11 +1,24 @@
 class Plane extends SceneObject {
-  Vector3 point;
-  Vector3 normal;
+  public Vector3 point;
+  public Vector3 normal;
 
   Plane(Vector3 point, Vector3 normal, float albedo) {
+    super(albedo);
     this.point = point;
     this.normal = normal;
-    this.albedo = albedo;
+  }
+
+  Plane(JSONObject j) {
+    super(j);
+    this.point = new Vector3(j.getJSONObject("point"));
+    this.normal = new Vector3(j.getJSONObject("normal"));
+  }
+
+  JSONObject toJSONObject() {
+    JSONObject j = super.toJSONObject();
+    j.setJSONObject("point", this.point.toJSONObject());
+    j.setJSONObject("normal", this.normal.toJSONObject());
+    return j;
   }
 
   float rayIntersect(Ray ray) {

@@ -1,12 +1,15 @@
-class Vector3 extends PVector {
+class Vector3 extends JSONSerializable {
+  public float x, y, z;
   boolean isNormalized;
   
   Vector3() {
-    super(0.0, 0.0, 0.0);
+    this(0.0, 0.0, 0.0);
   }
   
   Vector3(float x, float y, float z) {
-    super(x, y, z);
+    this.x = x;
+    this.y = y;
+    this.z = z;
   }
 
   Vector3(color colour) {
@@ -28,25 +31,30 @@ class Vector3 extends PVector {
     return s;
   }
 
-  JSONObject toJSONObject() {
-    JSONObject j = new JSONObject();
-    j.setFloat("x", this.x);
-    j.setFloat("y", this.y);
-    j.setFloat("z", this.z);
-
-  }
-
   color toColor() {
     return color(this.x*255, this.y*255, this.z*255);
   }
 
-  Vector3 normalize() {
-    this.isNormalized = true;
-    return (Vector3) super.normalize();
+  JSONObject toJSONObject() {
+    JSONObject j = super.toJSONObject();
+    j.setFloat("x", this.x);
+    j.setFloat("y", this.y);
+    j.setFloat("z", this.z);
+    return j;
   }
 
-  Vector3 normalized() {
-    this.normalize();
+  float getMagnitude() {
+    return sqrt(x*x + y*y + z*z);
+  }
+
+  Vector3 normalize() {
+    float magnitude = this.getMagnitude();
+    if (magnitude == 0)
+      magnitude = 1;
+    this.x /= magnitude;
+    this.y /= magnitude;
+    this.z /= magnitude;
+    this.isNormalized = true;
     return this;
   }
 

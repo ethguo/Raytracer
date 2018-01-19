@@ -1,27 +1,27 @@
 class Sphere extends SceneObject {
-  Vector3 center;
-  float radius;
-  float radiusSquared;
+  public Vector3 center;
+  public float radius;
+  private float radiusSquared;
 
   Sphere(Vector3 center, float radius, float albedo) {
+    super(albedo);
     this.center = center;
     this.radius = radius;
     this.radiusSquared = radius * radius;
-    this.albedo = albedo;
   }
 
   Sphere(JSONObject j) {
+    super(j);
     this.center = new Vector3(j.getJSONObject("center"));
     this.radius = j.getFloat("radius");
     this.radiusSquared = this.radius * this.radius;
-    this.albedo = j.getFloat("albedo");
   }
 
   JSONObject toJSONObject() {
-    JSONObject j = new JSONObject();
+    JSONObject j = super.toJSONObject();
     j.setJSONObject("center", this.center.toJSONObject());
     j.setFloat("radius", this.radius);
-    j.setFloat("albedo", this.albedo);
+    return j;
   }
 
   float rayIntersect(Ray ray) {

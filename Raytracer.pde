@@ -1,5 +1,6 @@
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.lang.reflect.Field;
 import g4p_controls.*;
 
 Scene scene;
@@ -9,7 +10,10 @@ void setup() {
   size(600, 600);
   surface.setTitle("Raytracer");
 
+  // JSONObject j = loadJSONObject("test_scene.json")
   scene = new Scene();
+  JSONObject j = scene.toJSONObject();
+  saveJSONObject(j, "data/scene.json");
 
   tweaker = new Tweaker(this);
   tweaker.addParameter("fov", new FloatParameter(75.0, 5.0, 175.0));
@@ -39,7 +43,7 @@ void draw() {
         pixels[imageY*width+imageX] = pointShading.toColor();
       }
       else {
-        pixels[imageY*width+imageX] = scene.skyColor;
+        pixels[imageY*width+imageX] = scene.skyColor.toColor();
       }
     }
   }
