@@ -1,9 +1,9 @@
 {
   "skyColor": {
-    "x": 0.5490196347236633,
-    "y": 0.7450980544090271,
-    "z": 0.8392156958580017,
-    "type": "Vector3"
+    "red": 140,
+    "green": 190,
+    "blue": 214,
+    "type": "Color"
   },
   "origin": {
     "x": 0,
@@ -69,10 +69,10 @@
     {
       "intensity": 1,
       "colour": {
-        "x": 0.800000011920929,
-        "y": 0.800000011920929,
-        "z": 0.800000011920929,
-        "type": "Vector3"
+        "red": 204,
+        "green": 204,
+        "blue": 204,
+        "type": "Color"
       },
       "type": "DirectionalLight",
       "direction": {
@@ -85,10 +85,10 @@
     {
       "intensity": 3.1415927410125732,
       "colour": {
-        "x": 1,
-        "y": 0.800000011920929,
-        "z": 0.6000000238418579,
-        "type": "Vector3"
+        "red": 255,
+        "green": 204,
+        "blue": 153,
+        "type": "Color"
       },
       "type": "DirectionalLight",
       "direction": {
@@ -101,10 +101,10 @@
     {
       "intensity": 1.5,
       "colour": {
-        "x": 0.20000000298023224,
-        "y": 0.6000000238418579,
-        "z": 1,
-        "type": "Vector3"
+        "red": 51,
+        "green": 153,
+        "blue": 255,
+        "type": "Color"
       },
       "type": "DirectionalLight",
       "direction": {

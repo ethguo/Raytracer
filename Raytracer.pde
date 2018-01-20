@@ -41,10 +41,11 @@ void draw() {
       boolean hit = primaryRay.cast();
       if (hit) {
         Vector3 pointShading = primaryRay.getPointShading();
-        pixels[imageY*width+imageX] = pointShading.toColor();
+        color pointColor = pointShading.toColorPrimitive();
+        pixels[imageY*width+imageX] = pointColor;
       }
       else {
-        pixels[imageY*width+imageX] = scene.skyColor.toColor();
+        pixels[imageY*width+imageX] = scene.skyColor.toColorPrimitive();
       }
     }
   }

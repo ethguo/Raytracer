@@ -32,7 +32,7 @@ class Vector3 extends JSONSerializable {
     return s;
   }
 
-  color toColor() {
+  color toColorPrimitive() {
     return color(this.x*255, this.y*255, this.z*255);
   }
 

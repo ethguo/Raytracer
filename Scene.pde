@@ -1,8 +1,8 @@
 class Scene extends JSONSerializable {
   public float fov;
+  public float shadowBias;
   public Vector3 origin;
   public Vector3 skyColor;
-  public float shadowBias;
   public SceneObject[] sceneObjects;
   public Light[] lights;
 
@@ -28,13 +28,38 @@ class Scene extends JSONSerializable {
 
   Scene(JSONObject j) {
     super(j);
-    // this.direction = new Vector3(j.getJSONObject("direction"));
-    // this.intensity = j.getFloat("intensity");
+    this.fov = j.getFloat("fov");
+    this.shadowBias = j.getFloat("shadowBias");
+    this.origin = new Vector3(j.getJSONObject("origin"));
+    this.skyColor = new Color(j.getJSONObject("skyColor")).toVector3();
+
+    // JSONArray jSceneObjects = j.getJSONArray("sceneObjects");
+    // for (int i = 0; i < jSceneObjects.size(); i++) {
+    //   this.sceneObjects[i] = new SceneObject(jSceneObjects.getJSONObject(i));
+    // }
+    // JSONArray jLights = j.getJSONArray("lights");
+    // for (int i = 0; i < jLights.size(); i++) {
+    //   this.lights[i] = new Light(jLights.getJSONObject(i));
+    // }
   }
 
-  // JSONObject toJSONObject() {
-    // JSONObject j = super.toJSONObject();
-    // j.setFloat("fov", this.fov);
-    // return j;
-  // }
+  JSONObject toJSONObject() {
+    JSONObject j = super.toJSONObject();
+    j.setFloat("fov", this.fov);
+    j.setFloat("shadowBias", this.shadowBias);
+    j.setJSONObject("origin", this.origin.toJSONObject());
+    j.setJSONObject("skyColor", new Color(this.skyColor).toJSONObject());
+
+    JSONArray jSceneObjects = new JSONArray();
+    for (SceneObject sceneObject : this.sceneObjects)
+      jSceneObjects.append(sceneObject.toJSONObject());
+    j.setJSONArray("sceneObjects", jSceneObjects);
+
+    JSONArray jLights = new JSONArray();
+    for (Light light : this.lights)
+      jLights.append(light.toJSONObject());
+    j.setJSONArray("lights", jLights);
+
+    return j;
+  }
 }
