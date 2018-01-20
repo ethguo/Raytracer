@@ -4,16 +4,25 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Constructor;
 import g4p_controls.*;
 
+String sceneFile = "scene.json";
+
 Scene scene;
 Tweaker tweaker;
 
 void setup() {
   size(600, 600);
   surface.setTitle("Raytracer");
+  surface.setLocation(displayWidth/2-450, displayHeight/2-300);
 
-  JSONObject j = loadJSONObject("scene.json");
-  scene = new Scene(j);
-  // scene = new Scene();
+  if (sceneFile.equals("")) {
+    scene = new Scene();
+    println("Demo scene loaded");
+  }
+  else {
+    JSONObject j = loadJSONObject(sceneFile);
+    scene = new Scene(j);
+    println("Scene loaded from " + sceneFile);
+  }
   // JSONObject j2 = scene.toJSONObject();
   // saveJSONObject(j2, "data/scene.json");
 

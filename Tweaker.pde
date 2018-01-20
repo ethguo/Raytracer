@@ -15,7 +15,7 @@ public class Tweaker {
     G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
     G4P.setCursor(ARROW);
 
-    this.tweakerWindow = GWindow.getWindow(this.applet, "Tweaker", 10, 10, 300, 600, JAVA2D);
+    this.tweakerWindow = GWindow.getWindow(this.applet, "Tweaker", displayWidth/2+152, displayHeight/2-300, 300, 600, JAVA2D);
     this.tweakerWindow.noLoop();
     this.tweakerWindow.setActionOnClose(G4P.EXIT_APP);
     this.tweakerWindow.addDrawHandler(this, "tweakerWindowDraw");
