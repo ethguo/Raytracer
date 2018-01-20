@@ -7,6 +7,7 @@ abstract class Light extends JSONSerializable {
 
   Light(JSONObject j) {
     this.colour = new Vector3(j.getJSONObject("colour"));
+    super(j);
   }
 
   JSONObject toJSONObject() {

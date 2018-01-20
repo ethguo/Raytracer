@@ -27,6 +27,7 @@ class Scene extends JSONSerializable {
   }
 
   Scene(JSONObject j) {
+    super(j);
     // this.direction = new Vector3(j.getJSONObject("direction"));
     // this.intensity = j.getFloat("intensity");
   }

@@ -11,6 +11,7 @@ class Vector2 extends JSONSerializable {
   }
 
   Vector2(JSONObject j) {
+    super(j);
     this.x = j.getFloat("x");
     this.y = j.getFloat("y");
   }

@@ -10,10 +10,11 @@ void setup() {
   size(600, 600);
   surface.setTitle("Raytracer");
 
-  // JSONObject j = loadJSONObject("test_scene.json")
-  scene = new Scene();
-  JSONObject j = scene.toJSONObject();
-  saveJSONObject(j, "data/scene.json");
+  JSONObject j = loadJSONObject("scene.json");
+  scene = new Scene(j);
+  // scene = new Scene();
+  // JSONObject j2 = scene.toJSONObject();
+  // saveJSONObject(j2, "data/scene.json");
 
   tweaker = new Tweaker(this);
   tweaker.addParameter("fov", new FloatParameter(75.0, 5.0, 175.0));
