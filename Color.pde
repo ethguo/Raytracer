@@ -16,7 +16,7 @@ class Color extends JSONSerializable {
     this.blue = colour & 0xFF;
   }
 
-  Color(JSONObject j) {
+  public Color(JSONObject j) {
     super(j);
     this.red = j.getInt("red");
     this.green = j.getInt("green");

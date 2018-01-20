@@ -5,7 +5,7 @@ abstract class SceneObject extends JSONSerializable {
     this.albedo = albedo;
   }
 
-  SceneObject(JSONObject j) {
+  public SceneObject(JSONObject j) {
     super(j);
     this.albedo = j.getFloat("albedo");
   }

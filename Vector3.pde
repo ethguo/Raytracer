@@ -18,7 +18,7 @@ class Vector3 extends JSONSerializable {
     this.z = (colour & 0xFF) / 255.0;
   }
 
-  Vector3(JSONObject j) {
+  public Vector3(JSONObject j) {
     super(j);
     this.x = j.getFloat("x");
     this.y = j.getFloat("y");

@@ -10,7 +10,7 @@ class Vector2 extends JSONSerializable {
     this.y = y;
   }
 
-  Vector2(JSONObject j) {
+  public Vector2(JSONObject j) {
     super(j);
     this.x = j.getFloat("x");
     this.y = j.getFloat("y");

@@ -1,7 +1,7 @@
 class JSONSerializable {
   JSONSerializable() {}
 
-  JSONSerializable(JSONObject j) {
+  public JSONSerializable(JSONObject j) {
     String className = this.getClass().getSimpleName();
     String jsonType = j.getString("type");
     if (!jsonType.equals(className)) throw new JSONTypeMismatchException("Invalid type for conversion in JSON object: expected " + className + ", got " + jsonType);

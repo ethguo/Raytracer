@@ -10,7 +10,7 @@ class Sphere extends SceneObject {
     this.radiusSquared = radius * radius;
   }
 
-  Sphere(JSONObject j) {
+  public Sphere(JSONObject j) {
     super(j);
     this.center = new Vector3(j.getJSONObject("center"));
     this.radius = j.getFloat("radius");

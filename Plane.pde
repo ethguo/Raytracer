@@ -8,7 +8,7 @@ class Plane extends SceneObject {
     this.normal = normal;
   }
 
-  Plane(JSONObject j) {
+  public Plane(JSONObject j) {
     super(j);
     this.point = new Vector3(j.getJSONObject("point"));
     this.normal = new Vector3(j.getJSONObject("normal"));
