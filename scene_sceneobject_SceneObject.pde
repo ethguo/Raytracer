@@ -1,4 +1,4 @@
-abstract class SceneObject extends JSONSerializable implements NamedObject {
+abstract class SceneObject extends JSONSerializable implements Tweakable {
   public String name;
   public float albedo;
 

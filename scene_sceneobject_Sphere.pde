@@ -1,20 +1,24 @@
 class Sphere extends SceneObject {
   public Vector3 center;
   public float radius;
-  private float radiusSquared;
+
+  private Vector3Parameter centerParameter;
+  private FloatParameter radiusParameter;
 
   Sphere(Vector3 center, float radius, float albedo) {
     super(albedo);
     this.center = center;
     this.radius = radius;
-    this.radiusSquared = radius * radius;
+
+    this.createParameters();
   }
 
   public Sphere(JSONObject j) {
     super(j);
     this.center = new Vector3(j.getJSONObject("center"));
     this.radius = j.getFloat("radius");
-    this.radiusSquared = this.radius * this.radius;
+
+    this.createParameters();
   }
 
   JSONObject toJSONObject() {
@@ -29,7 +33,7 @@ class Sphere extends SceneObject {
 
     float a = ray.direction.dotSelf();
     float b = 2 * ray.direction.dot(co);
-    float c = co.dotSelf() - radiusSquared;
+    float c = co.dotSelf() - radius*radius;
 
     Vector2 hits = solveQuadratic(a, b, c);
     if (hits == null)
@@ -51,5 +55,28 @@ class Sphere extends SceneObject {
     Vector3 normal = point.minus(this.center);
     normal.normalize();
     return normal;
+  }
+
+  // gui_Tweakable methods
+
+  void createParameters() {
+    if (this.centerParameter != null)
+      this.setVisible(true);
+    else {
+      this.centerParameter = new Vector3Parameter(this, "center", "Center", this.center, -5, 5);
+      this.radiusParameter = new FloatParameter(this, "radius", "Radius", this.radius, 0, 5);
+    }
+  }
+
+  int createGUIControls(GWindow window, int x, int y) {
+    int yPadding = 0;
+    yPadding += this.centerParameter.createGUIControls(window, x, y);
+    yPadding += this.radiusParameter.createGUIControls(window, x, y+yPadding);
+    return yPadding;
+  }
+
+  void setVisible(boolean visible) {
+    this.centerParameter.setVisible(visible);
+    this.radiusParameter.setVisible(visible);
   }
 }

@@ -1,6 +1,6 @@
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.lang.reflect.Constructor;
 import g4p_controls.*;
 
@@ -11,9 +11,9 @@ Scene frozenScene;
 Tweaker tweaker;
 
 void setup() {
-  size(600, 600);
+  size(800, 800);
   surface.setTitle("Raytracer");
-  surface.setLocation(displayWidth/2-450, displayHeight/2-300);
+  surface.setLocation(displayWidth/2-550, displayHeight/2-400);
 
   if (sceneFile.equals("")) {
     scene = new Scene();
@@ -28,11 +28,11 @@ void setup() {
   // saveJSONObject(j2, "data/scene.json");
 
   tweaker = new Tweaker(this);
-  tweaker.addParameter(new FloatParameter(scene, "setFOV", "Field of View", scene.fov, 5.0, 175.0));
-  tweaker.addParameter(new FloatParameter(scene, "setShadowBias", "Shadow Bias", scene.shadowBias));
-  tweaker.addParameter(new Vector3Parameter(scene, "setCameraOrigin", "Camera Origin", scene.cameraOrigin, -5, 5));
-  tweaker.addParameter(new Vector3Parameter(scene, "setSkyColor", "Sky Color", scene.skyColor, true));
-  tweaker.addParameter(new ListParameter<SceneObject>(scene, "setSceneObjects", "Scene Objects", scene.sceneObjects));
+  tweaker.addParameter(new FloatParameter(scene, "fov", "Field of View", scene.fov, 5.0, 175.0));
+  tweaker.addParameter(new FloatParameter(scene, "shadowBias", "Shadow Bias", scene.shadowBias));
+  tweaker.addParameter(new Vector3Parameter(scene, "cameraOrigin", "Camera Origin", scene.cameraOrigin, -5, 5));
+  tweaker.addParameter(new Vector3Parameter(scene, "skyColor", "Sky Color", scene.skyColor, true));
+  tweaker.addParameter(new ListParameter<SceneObject>(scene, "sceneObjects", "Scene Objects", scene.sceneObjects));
 
   tweaker.draw();
 

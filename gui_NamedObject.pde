@@ -1,3 +1,0 @@
-interface NamedObject {
-  String getName();
-}

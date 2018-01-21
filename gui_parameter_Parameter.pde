@@ -1,15 +1,15 @@
 public abstract class Parameter {
   String labelText;
   Object obj;
-  Method updateMethod;
+  Field updateField;
 
   GLabel label;
 
-  Parameter(String labelText, Object obj, String updateMethodName, Class<?>... argTypes) {
+  Parameter(String labelText, Object obj, String fieldName) {
     this.labelText = labelText;
   	this.obj = obj;
   	try {
-    	this.updateMethod = obj.getClass().getMethod(updateMethodName, argTypes);
+    	this.updateField = obj.getClass().getField(fieldName);
     }
     catch (ReflectiveOperationException e) {
       System.err.println(e.getClass().getSimpleName() + ": " + e.getMessage());
@@ -17,9 +17,9 @@ public abstract class Parameter {
 
   }
 
-  public void callUpdateMethod(Object... args) {
+  public void updateValue(Object value) {
     try {
-      this.updateMethod.invoke(this.obj, args);
+      this.updateField.set(this.obj, value);
     }
     catch (ReflectiveOperationException e) {
       System.err.println(e.getClass().getSimpleName() + ": " + e.getMessage());
@@ -36,6 +36,10 @@ public abstract class Parameter {
     this.label.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
     this.label.setText(this.labelText);
     this.label.setOpaque(false);
+  }
+
+  void setVisible(boolean visible) {
+    this.label.setVisible(visible);
   }
 
   // Returns vertical size

@@ -1,4 +1,4 @@
-abstract class Light extends JSONSerializable implements NamedObject {
+abstract class Light extends JSONSerializable {
   public Vector3 colour;
 
   Light(color colour) {

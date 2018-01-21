@@ -9,14 +9,14 @@ public class FloatParameter extends Parameter {
   private GTextField textField;
   private GSlider slider;
 
-  FloatParameter(Object obj, String updateMethodName, String labelText, float initialValue) {
-    super(labelText, obj, updateMethodName, float.class);
+  FloatParameter(Object obj, String fieldName, String labelText, float initialValue) {
+    super(labelText, obj, fieldName);
     this.value = initialValue;
     this.labelText = labelText;
   }
 
-  FloatParameter(Object obj, String updateMethodName, String labelText, float initialValue, float minValue, float maxValue) {
-    this(obj, updateMethodName, labelText, initialValue);
+  FloatParameter(Object obj, String fieldName, String labelText, float initialValue, float minValue, float maxValue) {
+    this(obj, fieldName, labelText, initialValue);
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.hasSlider = true;
@@ -46,6 +46,13 @@ public class FloatParameter extends Parameter {
     return 20;
   }
 
+  void setVisible(boolean visible) {
+    super.setVisible(visible);
+    this.textField.setVisible(visible);
+    if (this.hasSlider)
+      this.slider.setVisible(visible);
+  }
+
   public void fieldChange(GTextField source, GEvent event) {
     if (event == GEvent.ENTERED || event == GEvent.LOST_FOCUS) {
       this.value = float(this.textField.getText());
@@ -55,7 +62,7 @@ public class FloatParameter extends Parameter {
         this.propagatingChange = true;
         this.slider.setValue(this.value);
       }
-      this.callUpdateMethod(this.value);
+      this.updateValue(this.value);
     }
   }
 
@@ -64,7 +71,7 @@ public class FloatParameter extends Parameter {
     if (!this.propagatingChange && event == GEvent.VALUE_STEADY) {
       this.value = this.slider.getValueF();
       this.textField.setText(str(this.value));
-      this.callUpdateMethod(this.value);
+      this.updateValue(this.value);
     }
     this.propagatingChange = false;
   }

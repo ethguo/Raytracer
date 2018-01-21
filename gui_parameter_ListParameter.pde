@@ -1,17 +1,24 @@
-public class ListParameter<T extends NamedObject> extends Parameter {
+public class ListParameter<T extends Tweakable> extends Parameter {
   ArrayList<T> list;
-  int currentIndex;
   T currentItem;
+
+  private GWindow window;
+  private int x, y;
 
   private GDropList dropList;
 
-  ListParameter(Object obj, String updateMethodName, String labelText, ArrayList<T> list) {
-    super(labelText, obj, updateMethodName, ArrayList.class);
+  ListParameter(Object obj, String fieldName, String labelText, ArrayList<T> list) {
+    super(labelText, obj, fieldName);
     this.list = list;
     this.labelText = labelText;
+
+    this.currentItem = list.get(0);
   }
 
   int createGUIControls(GWindow window, int x, int y) {
+    this.window = window;
+    this.x = x;
+    this.y = y;
     this.createLabel(window, x, y);
 
     String[] listNames = new String[list.size()];
@@ -22,12 +29,18 @@ public class ListParameter<T extends NamedObject> extends Parameter {
     this.dropList = new GDropList(window, x+100, y, 160, 120, 5);
     this.dropList.setItems(listNames, 0);
     this.dropList.addEventHandler(this, "dropListChange");
+    
+    this.currentItem.createGUIControls(window, x, y+20);
 
     return 20;
   }
 
   public void dropListChange(GDropList source, GEvent event) {
-    this.currentIndex = this.dropList.getSelectedIndex();
-    this.currentItem = this.list.get(this.currentIndex);
+    this.currentItem.setVisible(false);
+
+    int index = this.dropList.getSelectedIndex();
+    this.currentItem = this.list.get(index);
+
+    this.currentItem.createGUIControls(window, x, y+20);
   }
 }
