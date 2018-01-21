@@ -45,30 +45,6 @@ class Scene extends JSONSerializable {
     return j;
   }
 
-  public void setFOV(float fov) {
-    this.fov = fov;
-  }
-
-  public void setShadowBias(float shadowBias) {
-    this.shadowBias = shadowBias;
-  }
-
-  public void setCameraOrigin(Vector3 cameraOrigin) {
-    this.cameraOrigin = cameraOrigin;
-  }
-
-  public void setSkyColor(Vector3 skyColor) {
-    this.skyColor = skyColor;
-  }
-
-  public void setSceneObjects(ArrayList<SceneObject> sceneObjects) {
-    this.sceneObjects = sceneObjects;
-  }
-
-  public void setLights(ArrayList<Light> lights) {
-    this.lights = lights;
-  }
-
   // Deep copies this object, by serializing it then deserializing it again.
   Scene copy() {
     return new Scene(this.toJSONObject());
