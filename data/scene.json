@@ -5,7 +5,7 @@
     "blue": 214,
     "type": "Color"
   },
-  "origin": {
+  "cameraOrigin": {
     "x": 0,
     "y": 0,
     "z": 0,

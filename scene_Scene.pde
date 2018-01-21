@@ -1,7 +1,7 @@
 class Scene extends JSONSerializable {
   public float fov;
   public float shadowBias;
-  public Vector3 origin;
+  public Vector3 cameraOrigin;
   public Vector3 skyColor;
   public ArrayList<SceneObject> sceneObjects;
   public ArrayList<Light> lights;
@@ -9,7 +9,7 @@ class Scene extends JSONSerializable {
   Scene() {
     this.fov = 75;
     this.shadowBias = 1e-4;
-    this.origin = new Vector3(0, 0, 0);
+    this.cameraOrigin = new Vector3(0, 0, 0);
     this.skyColor = new Vector3(#8CBED6);
 
     this.sceneObjects = new ArrayList<SceneObject>();
@@ -28,7 +28,7 @@ class Scene extends JSONSerializable {
     super(j);
     this.fov = j.getFloat("fov");
     this.shadowBias = j.getFloat("shadowBias");
-    this.origin = new Vector3(j.getJSONObject("origin"));
+    this.cameraOrigin = new Vector3(j.getJSONObject("cameraOrigin"));
     this.skyColor = new Color(j.getJSONObject("skyColor")).toVector3();
     this.sceneObjects = fromJSONArray(j.getJSONArray("sceneObjects"));
     this.lights = fromJSONArray(j.getJSONArray("lights"));
@@ -38,7 +38,7 @@ class Scene extends JSONSerializable {
     JSONObject j = super.toJSONObject();
     j.setFloat("fov", this.fov);
     j.setFloat("shadowBias", this.shadowBias);
-    j.setJSONObject("origin", this.origin.toJSONObject());
+    j.setJSONObject("cameraOrigin", this.cameraOrigin.toJSONObject());
     j.setJSONObject("skyColor", new Color(this.skyColor).toJSONObject());
     j.setJSONArray("sceneObjects", toJSONArray(this.sceneObjects));
     j.setJSONArray("lights", toJSONArray(this.lights));
@@ -53,8 +53,8 @@ class Scene extends JSONSerializable {
     this.shadowBias = shadowBias;
   }
 
-  public void setOrigin(Vector3 origin) {
-    this.origin = origin;
+  public void setCameraOrigin(Vector3 cameraOrigin) {
+    this.cameraOrigin = cameraOrigin;
   }
 
   public void setSkyColor(Vector3 skyColor) {

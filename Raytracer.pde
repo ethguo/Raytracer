@@ -82,7 +82,7 @@ Ray getPrimaryRay(int imageX, int imageY) {
   Vector3 direction = new Vector3(cameraPlaneX, cameraPlaneY, -1);
   direction.normalize();
 
-  return new Ray(frozenScene.origin, direction);
+  return new Ray(frozenScene.cameraOrigin, direction);
 }
 
 void drawGrid(float cellWidth, float cellHeight) {
