@@ -10,23 +10,20 @@ public class FloatParameter extends Parameter {
   private GSlider slider;
   private GLabel label;
 
-  FloatParameter(Object obj, String methodName, String labelText, float initialValue) {
-    super(obj, methodName, float.class);
+  FloatParameter(Object obj, String updateMethodName, String labelText, float initialValue) {
+    super(obj, updateMethodName, float.class);
     this.value = initialValue;
     this.labelText = labelText;
     this.hasSlider = false;
   }
 
-  FloatParameter(Object obj, String methodName, String labelText, float initialValue, float minValue, float maxValue) {
-    super(obj, methodName, float.class);
-    this.value = initialValue;
-    this.labelText = labelText;
+  FloatParameter(Object obj, String updateMethodName, String labelText, float initialValue, float minValue, float maxValue) {
+    this(obj, updateMethodName, labelText, initialValue);
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.hasSlider = true;
   }
 
-  // Returns vertical size
   int createGUIControls(GWindow window, int x, int y) {
     return this.createGUIControls(window, x, y, 100, 160);
   }
@@ -63,7 +60,7 @@ public class FloatParameter extends Parameter {
         this.propagatingChange = true;
         this.slider.setValue(this.value);
       }
-      this.update(this.value);
+      this.callUpdateMethod(this.value);
     }
   }
 
@@ -72,7 +69,7 @@ public class FloatParameter extends Parameter {
     if (!this.propagatingChange && event == GEvent.VALUE_STEADY) {
       this.value = this.slider.getValueF();
       this.textField.setText(str(this.value));
-      this.update(this.value);
+      this.callUpdateMethod(this.value);
     }
     this.propagatingChange = false;
   }

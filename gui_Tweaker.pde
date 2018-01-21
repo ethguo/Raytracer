@@ -36,7 +36,6 @@ public class Tweaker {
   }
 
   void addParameter(Parameter parameter) {
-    parameter.tweaker = this;
     this.parameters.add(parameter);
   }
 
