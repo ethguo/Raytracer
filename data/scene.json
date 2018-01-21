@@ -21,7 +21,7 @@
       },
       "type": "Sphere",
       "radius": 1,
-      "albedo": 0.8999999761581421
+      "albedo": 0.9
     },
     {
       "center": {
@@ -32,7 +32,7 @@
       },
       "type": "Sphere",
       "radius": 2,
-      "albedo": 0.800000011920929
+      "albedo": 0.8
     },
     {
       "center": {
@@ -42,8 +42,8 @@
         "type": "Vector3"
       },
       "type": "Sphere",
-      "radius": 0.33000001311302185,
-      "albedo": 0.8999999761581421
+      "radius": 0.33,
+      "albedo": 0.9
     },
     {
       "normal": {
@@ -59,10 +59,10 @@
         "z": 0,
         "type": "Vector3"
       },
-      "albedo": 0.6000000238418579
+      "albedo": 0.6
     }
   ],
-  "shadowBias": 9.999999747378752E-5,
+  "shadowBias": 1.0E-4,
   "type": "Scene",
   "fov": 75,
   "lights": [
@@ -83,7 +83,7 @@
       }
     },
     {
-      "intensity": 3.1415927410125732,
+      "intensity": 3,
       "colour": {
         "red": 255,
         "green": 204,
@@ -92,9 +92,9 @@
       },
       "type": "DirectionalLight",
       "direction": {
-        "x": 0.5773502588272095,
-        "y": -0.5773502588272095,
-        "z": -0.5773502588272095,
+        "x": 1,
+        "y": -1,
+        "z": -1,
         "type": "Vector3"
       }
     },
@@ -108,9 +108,9 @@
       },
       "type": "DirectionalLight",
       "direction": {
-        "x": -0.8164965510368347,
-        "y": -0.40824827551841736,
-        "z": -0.40824827551841736,
+        "x": -1,
+        "y": -0.5,
+        "z": -0.5,
         "type": "Vector3"
       }
     }

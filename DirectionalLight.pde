@@ -10,7 +10,7 @@ class DirectionalLight extends Light {
 
   public DirectionalLight(JSONObject j) {
     super(j);
-    this.direction = new Vector3(j.getJSONObject("direction"));
+    this.direction = new Vector3(j.getJSONObject("direction")).normalize();
     this.intensity = j.getFloat("intensity");
   }
 

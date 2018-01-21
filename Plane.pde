@@ -5,13 +5,13 @@ class Plane extends SceneObject {
   Plane(Vector3 point, Vector3 normal, float albedo) {
     super(albedo);
     this.point = point;
-    this.normal = normal;
+    this.normal = normal.normalize();
   }
 
   public Plane(JSONObject j) {
     super(j);
     this.point = new Vector3(j.getJSONObject("point"));
-    this.normal = new Vector3(j.getJSONObject("normal"));
+    this.normal = new Vector3(j.getJSONObject("normal")).normalize();
   }
 
   JSONObject toJSONObject() {
