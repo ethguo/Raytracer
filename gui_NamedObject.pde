@@ -1,0 +1,3 @@
+interface NamedObject {
+  String getName();
+}

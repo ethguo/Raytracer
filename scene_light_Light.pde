@@ -1,4 +1,4 @@
-abstract class Light extends JSONSerializable {
+abstract class Light extends JSONSerializable implements NamedObject {
   public Vector3 colour;
 
   Light(color colour) {
@@ -14,6 +14,10 @@ abstract class Light extends JSONSerializable {
     JSONObject j = super.toJSONObject();
     j.setJSONObject("colour", new Color(this.colour).toJSONObject());
     return j;
+  }
+
+  String getName() {
+    return this.getClass().getSimpleName();
   }
 
   abstract Vector3 getDirection(Vector3 point);

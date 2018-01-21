@@ -32,6 +32,7 @@ void setup() {
   tweaker.addParameter(new FloatParameter(scene, "setShadowBias", "Shadow Bias", scene.shadowBias));
   tweaker.addParameter(new Vector3Parameter(scene, "setCameraOrigin", "Camera Origin", scene.cameraOrigin, -5, 5));
   tweaker.addParameter(new Vector3Parameter(scene, "setSkyColor", "Sky Color", scene.skyColor, true));
+  tweaker.addParameter(new ListParameter<SceneObject>(scene, "setSceneObjects", "Scene Objects", scene.sceneObjects));
 
   tweaker.draw();
 

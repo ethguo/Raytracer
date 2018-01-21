@@ -61,6 +61,14 @@ class Scene extends JSONSerializable {
     this.skyColor = skyColor;
   }
 
+  public void setSceneObjects(ArrayList<SceneObject> sceneObjects) {
+    this.sceneObjects = sceneObjects;
+  }
+
+  public void setLights(ArrayList<Light> lights) {
+    this.lights = lights;
+  }
+
   // Deep copies this object, by serializing it then deserializing it again.
   Scene copy() {
     return new Scene(this.toJSONObject());
