@@ -24,7 +24,8 @@ public class Tweaker {
 
     int y = 20;
     for(Parameter parameter : this.parameters) {
-      y += parameter.createGUIControls(this.tweakerWindow, 20, y);
+      int yPadding = parameter.createGUIControls(this.tweakerWindow, 20, y);
+      y += yPadding + 40;
     }
 
     this.tweakerWindow.loop();

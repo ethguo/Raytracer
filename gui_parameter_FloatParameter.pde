@@ -3,8 +3,9 @@ public class FloatParameter extends Parameter {
   String labelText;
   float minValue;
   float maxValue;
-  boolean hasSlider;
-  boolean propagatingChange = false;
+  boolean hasSlider = false;
+
+  private boolean propagatingChange = false;
 
   private GTextField textField;
   private GSlider slider;
@@ -14,7 +15,6 @@ public class FloatParameter extends Parameter {
     super(obj, updateMethodName, float.class);
     this.value = initialValue;
     this.labelText = labelText;
-    this.hasSlider = false;
   }
 
   FloatParameter(Object obj, String updateMethodName, String labelText, float initialValue, float minValue, float maxValue) {
@@ -45,10 +45,10 @@ public class FloatParameter extends Parameter {
       this.slider.setNumberFormat(G4P.DECIMAL, 2);
       this.slider.setOpaque(false);
       this.slider.addEventHandler(this, "sliderChange");
-      return 60;
+      return 40;
     }
     
-    return 40;
+    return 20;
   }
 
   public void fieldChange(GTextField source, GEvent event) {
