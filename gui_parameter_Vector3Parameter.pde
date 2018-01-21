@@ -12,11 +12,15 @@ public class Vector3Parameter extends Parameter {
   private GLabel label;
 
   Vector3Parameter(Object obj, String updateMethodName, String labelText, Vector3 initialValue) {
-    super(obj, updateMethodName, Vector3.class);
+    super(labelText, obj, updateMethodName, Vector3.class);
     this.value = initialValue;
     this.labelText = labelText;
     this.hasSliders = false;
     this.isColor = false;
+
+    this.xParameter = new FloatParameter(this, "setX", "X", this.value.x);
+    this.yParameter = new FloatParameter(this, "setY", "Y", this.value.y);
+    this.zParameter = new FloatParameter(this, "setZ", "Z", this.value.z);
   }
 
   Vector3Parameter(Object obj, String updateMethodName, String labelText, Vector3 initialValue, float minValue, float maxValue) {
@@ -24,34 +28,23 @@ public class Vector3Parameter extends Parameter {
     this.hasSliders = true;
     this.minValue = minValue;
     this.maxValue = maxValue;
+
+    this.xParameter = new FloatParameter(this, "setX", "X", this.value.x, minValue, maxValue);
+    this.yParameter = new FloatParameter(this, "setY", "Y", this.value.y, minValue, maxValue);
+    this.zParameter = new FloatParameter(this, "setZ", "Z", this.value.z, minValue, maxValue);
   }
 
   Vector3Parameter(Object obj, String updateMethodName, String labelText, Vector3 initialValue, boolean isColor) {
     this(obj, updateMethodName, labelText, initialValue);
     this.isColor = isColor;
+
+    this.xParameter = new FloatParameter(this, "setX", "R", this.value.x*255, 0, 255);
+    this.yParameter = new FloatParameter(this, "setY", "G", this.value.y*255, 0, 255);
+    this.zParameter = new FloatParameter(this, "setZ", "B", this.value.z*255, 0, 255);
   }
 
   int createGUIControls(GWindow window, int x, int y) {
-    this.label = new GLabel(window, x, y, 100, 20);
-    this.label.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
-    this.label.setText(this.labelText);
-    this.label.setOpaque(false);
-
-    if (this.isColor) {
-      this.xParameter = new FloatParameter(this, "setX", "R", this.value.x*255, 0, 255);
-      this.yParameter = new FloatParameter(this, "setY", "G", this.value.y*255, 0, 255);
-      this.zParameter = new FloatParameter(this, "setZ", "B", this.value.z*255, 0, 255);
-    }
-    else if (this.hasSliders) {
-      this.xParameter = new FloatParameter(this, "setX", "X", this.value.x, minValue, maxValue);
-      this.yParameter = new FloatParameter(this, "setY", "Y", this.value.y, minValue, maxValue);
-      this.zParameter = new FloatParameter(this, "setZ", "Z", this.value.z, minValue, maxValue);
-    }
-    else {
-      this.xParameter = new FloatParameter(this, "setX", "X", this.value.x);
-      this.yParameter = new FloatParameter(this, "setY", "Y", this.value.y);
-      this.zParameter = new FloatParameter(this, "setZ", "Z", this.value.z);
-    }
+    this.createLabel(window, x, y);
 
     int yPadding = 0;
     yPadding += this.xParameter.createGUIControls(window, x+100, y, 20, 140);

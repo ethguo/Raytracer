@@ -1,6 +1,5 @@
 public class FloatParameter extends Parameter {
   float value;
-  String labelText;
   float minValue;
   float maxValue;
   boolean hasSlider = false;
@@ -9,10 +8,9 @@ public class FloatParameter extends Parameter {
 
   private GTextField textField;
   private GSlider slider;
-  private GLabel label;
 
   FloatParameter(Object obj, String updateMethodName, String labelText, float initialValue) {
-    super(obj, updateMethodName, float.class);
+    super(labelText, obj, updateMethodName, float.class);
     this.value = initialValue;
     this.labelText = labelText;
   }
@@ -29,10 +27,7 @@ public class FloatParameter extends Parameter {
   }
 
   int createGUIControls(GWindow window, int x, int y, int labelWidth, int fieldWidth) {
-    this.label = new GLabel(window, x, y, labelWidth, 20);
-    this.label.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
-    this.label.setText(this.labelText);
-    this.label.setOpaque(false);
+    this.createLabel(window, x, y, labelWidth);
 
     this.textField = new GTextField(window, x+labelWidth, y, fieldWidth, 20, G4P.SCROLLBARS_NONE);
     this.textField.setText(Float.toString(this.value));
