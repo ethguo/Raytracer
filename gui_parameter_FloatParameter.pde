@@ -20,6 +20,7 @@ public class FloatParameter extends Parameter {
   FloatParameter(Object obj, String methodName, String labelText, float initialValue, float minValue, float maxValue) {
     super(obj, methodName, float.class);
     this.value = initialValue;
+    this.labelText = labelText;
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.hasSlider = true;
@@ -27,24 +28,22 @@ public class FloatParameter extends Parameter {
 
   // Returns vertical size
   int createGUIControls(GWindow window, int x, int y) {
-    return this.createGUIControls(window, x + 100, y, x);
+    return this.createGUIControls(window, x, y, 100, 160);
   }
 
-  int createGUIControls(GWindow window, int x, int y, int xLabel) {
-    if (this.labelText != null) {
-      this.label = new GLabel(window, xLabel, y, x - xLabel, 20);
-      this.label.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
-      this.label.setText(this.labelText);
-      this.label.setOpaque(false);
-    }
+  int createGUIControls(GWindow window, int x, int y, int labelWidth, int fieldWidth) {
+    this.label = new GLabel(window, x, y, labelWidth, 20);
+    this.label.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
+    this.label.setText(this.labelText);
+    this.label.setOpaque(false);
 
-    this.textField = new GTextField(window, x, y, x, 20, G4P.SCROLLBARS_NONE);
+    this.textField = new GTextField(window, x+labelWidth, y, fieldWidth, 20, G4P.SCROLLBARS_NONE);
     this.textField.setText(Float.toString(this.value));
     this.textField.setOpaque(true);
     this.textField.addEventHandler(this, "fieldChange");
 
     if (this.hasSlider) {
-      this.slider = new GSlider(window, x, y+20, x, 20, 10.0);
+      this.slider = new GSlider(window, x+labelWidth, y+20, fieldWidth, 20, 10.0);
       this.slider.setLimits(value, minValue, maxValue);
       this.slider.setNumberFormat(G4P.DECIMAL, 2);
       this.slider.setOpaque(false);
