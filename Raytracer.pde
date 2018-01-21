@@ -26,11 +26,11 @@ void setup() {
   // JSONObject j2 = scene.toJSONObject();
   // saveJSONObject(j2, "data/scene.json");
 
-  tweaker = new Tweaker(this);
-  tweaker.addParameter("fov", new FloatParameter(75.0, 5.0, 175.0));
+  // tweaker = new Tweaker(this);
+  // tweaker.addParameter(new FloatParameter(scene, 75.0, 5.0, 175.0));
   // tweaker.addParameter("obj1_position", new VectorParameter<Vector3>(75, 5, 175));
 
-  tweaker.draw();
+  // tweaker.draw();
 
   noLoop();
 }

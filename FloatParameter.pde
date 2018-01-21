@@ -6,7 +6,8 @@ public class FloatParameter extends Parameter {
   private GTextField textField;
   private GSlider slider;
 
-  FloatParameter(float initialValue, float minValue, float maxValue) {
+  FloatParameter(Object obj, String fieldName, float initialValue, float minValue, float maxValue) {
+    super(obj, fieldName);
     this.value = initialValue;
     this.minValue = minValue;
     this.maxValue = maxValue;
@@ -16,6 +17,7 @@ public class FloatParameter extends Parameter {
     return value;
   }
 
+  // Returns next y coordinate
   int createGUIControls(GWindow window, int y) {
     textField = new GTextField(window, 100, y, 100, 20, G4P.SCROLLBARS_NONE);
     textField.setText(Float.toString(this.value));
