@@ -1,12 +1,13 @@
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Constructor;
 import g4p_controls.*;
 
 String sceneFile = "scene.json";
 
 Scene scene;
+Scene frozenScene;
 Tweaker tweaker;
 
 void setup() {
@@ -26,11 +27,12 @@ void setup() {
   // JSONObject j2 = scene.toJSONObject();
   // saveJSONObject(j2, "data/scene.json");
 
-  // tweaker = new Tweaker(this);
-  // tweaker.addParameter(new FloatParameter(scene, 75.0, 5.0, 175.0));
-  // tweaker.addParameter("obj1_position", new VectorParameter<Vector3>(75, 5, 175));
+  tweaker = new Tweaker(this);
+  tweaker.addParameter(new FloatParameter(scene, "setFOV", "Field of View", 75.0, 5.0, 175.0));
+  tweaker.addParameter(new FloatParameter(scene, "setShadowBias", "Shadow Bias", 1e-4));
+  // tweaker.addParameter(new VectorParameter<Vector3>(scene, "" 75, 5, 175));
 
-  // tweaker.draw();
+  tweaker.draw();
 
   noLoop();
 }
@@ -42,6 +44,9 @@ void draw() {
 
   // drawGrid(imagePixelWidth, imagePixelWidth);
   // noStroke();
+
+  // Make a deep copy of the scene, so that it won't be affected if the scene is updated by the GUI in the middle of drawing.
+  frozenScene = scene.copy();
 
   for (int imageY = 0; imageY < height; imageY++) {
     for (int imageX = 0; imageX < width; imageX++) {
@@ -55,7 +60,7 @@ void draw() {
         pixels[imageY*width+imageX] = pointColor;
       }
       else {
-        pixels[imageY*width+imageX] = scene.skyColor.toColorPrimitive();
+        pixels[imageY*width+imageX] = frozenScene.skyColor.toColorPrimitive();
       }
     }
   }
@@ -67,7 +72,7 @@ void draw() {
 }
 
 Ray getPrimaryRay(int imageX, int imageY) {
-  float fovRad = scene.fov * PI / 180;
+  float fovRad = frozenScene.fov * PI / 180;
 
   float aspectRatio = (float) width / height;
 
@@ -77,7 +82,7 @@ Ray getPrimaryRay(int imageX, int imageY) {
   Vector3 direction = new Vector3(cameraPlaneX, cameraPlaneY, -1);
   direction.normalize();
 
-  return new Ray(scene.origin, direction);
+  return new Ray(frozenScene.origin, direction);
 }
 
 void drawGrid(float cellWidth, float cellHeight) {

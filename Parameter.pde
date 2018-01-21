@@ -1,20 +1,29 @@
 public abstract class Parameter {
   Tweaker tweaker;
   Object obj;
-  String fieldName;
-  Field field;
+  Method updateMethod;
 
-  Parameter(Object obj, String fieldName) {
+  Parameter(Object obj, String methodName, Class<?>... argTypes) {
   	this.obj = obj;
-  	this.fieldName = fieldName;
   	try {
-    	this.field = obj.getClass().getField(fieldName);
+    	this.updateMethod = obj.getClass().getMethod(methodName, argTypes);
     }
     catch (ReflectiveOperationException e) {
       System.err.println(e.getClass().getSimpleName() + ": " + e.getMessage());
     }
+
+  }
+
+  public void update(Object... args) {
+    try {
+      this.updateMethod.invoke(this.obj, args);
+    }
+    catch (ReflectiveOperationException e) {
+      System.err.println(e.getClass().getSimpleName() + ": " + e.getMessage());
+    }
+    this.tweaker.update();
   }
   
-  abstract Object getValue();
-  abstract int createGUIControls(GWindow window, int y); // Returns next y coordinate
+  // Returns vertical size
+  abstract int createGUIControls(GWindow window, int x, int y);
 }

@@ -8,9 +8,9 @@ class Scene extends JSONSerializable {
 
   Scene() {
     this.fov = 75;
+    this.shadowBias = 1e-4;
     this.origin = new Vector3(0, 0, 0);
     this.skyColor = new Vector3(#8CBED6);
-    this.shadowBias = 1e-4;
 
     this.sceneObjects = new ArrayList<SceneObject>();
     this.sceneObjects.add(new Sphere(new Vector3(0, -1, -4), 1, 0.9));
@@ -43,5 +43,26 @@ class Scene extends JSONSerializable {
     j.setJSONArray("sceneObjects", toJSONArray(this.sceneObjects));
     j.setJSONArray("lights", toJSONArray(this.lights));
     return j;
+  }
+
+  public void setFOV(float fov) {
+    this.fov = fov;
+  }
+
+  public void setShadowBias(float shadowBias) {
+    this.shadowBias = shadowBias;
+  }
+
+  public void setOrigin(Vector3 origin) {
+    this.origin = origin;
+  }
+
+  public void setSkyColor(Vector3 skyColor) {
+    this.skyColor = skyColor;
+  }
+
+  // Deep copies this object, by serializing it then deserializing it again.
+  Scene copy() {
+    return new Scene(this.toJSONObject());
   }
 }

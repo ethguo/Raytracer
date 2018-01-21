@@ -21,7 +21,7 @@ class Ray {
 
   boolean cast() {
     this.tHit = Float.POSITIVE_INFINITY;
-    for (SceneObject sceneObject : scene.sceneObjects) {
+    for (SceneObject sceneObject : frozenScene.sceneObjects) {
       float tHitObject = sceneObject.rayIntersect(this);
       if (tHitObject > 0 && tHitObject < this.tHit) {
         this.tHit = tHitObject;
@@ -44,12 +44,12 @@ class Ray {
 
     Vector3 pointShading = new Vector3();
 
-    for (Light light : scene.lights) {
+    for (Light light : frozenScene.lights) {
       float lightIntensity = light.getIntensity(this.hitPoint);
       Vector3 lightDirection = light.getDirection(this.hitPoint);
       Vector3 negLightDirection = lightDirection.times(-1);
 
-      Ray shadowRay = new Ray(this.hitPoint.plus(normal.times(scene.shadowBias)), negLightDirection);
+      Ray shadowRay = new Ray(this.hitPoint.plus(normal.times(frozenScene.shadowBias)), negLightDirection);
       boolean shadow = shadowRay.cast();
       if (!shadow) {
         float intensity = lightIntensity
