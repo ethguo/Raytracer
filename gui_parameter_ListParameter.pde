@@ -1,18 +1,20 @@
 public class ListParameter<T extends Tweakable> extends Parameter {
-  ArrayList<T> list;
-  T currentItem;
+  ArrayList<T> items;
+  ArrayList<Parameter[]> itemParameters;
+  int currentIndex;
 
   private GWindow window;
   private int x, y;
 
   private GDropList dropList;
 
-  ListParameter(Object obj, String fieldName, String labelText, ArrayList<T> list) {
+  ListParameter(Object obj, String fieldName, String labelText, ArrayList<T> items) {
     super(labelText, obj, fieldName);
-    this.list = list;
+    this.items = items;
     this.labelText = labelText;
 
-    this.currentItem = list.get(0);
+    this.currentIndex = 0;
+    this.itemParameters = new ArrayList<Parameter[]>(items.size());
   }
 
   int createGUIControls(GWindow window, int x, int y) {
@@ -21,26 +23,46 @@ public class ListParameter<T extends Tweakable> extends Parameter {
     this.y = y;
     this.createLabel(window, x, y);
 
-    String[] listNames = new String[list.size()];
-    for (int i = 0; i < listNames.length; i++) {
-      listNames[i] = list.get(i).getName();
+    String[] itemNames = new String[items.size()];
+    for (int i = 0; i < itemNames.length; i++) {
+      itemNames[i] = items.get(i).getName();
     }
 
-    this.dropList = new GDropList(window, x+100, y, 160, 120, 5);
-    this.dropList.setItems(listNames, 0);
+    this.dropList = new GDropList(window, x+labelWidth, y, tweakerWidth - labelWidth - x - 20, 100, 4);
+    this.dropList.setItems(itemNames, 0);
     this.dropList.addEventHandler(this, "dropListChange");
-    
-    this.currentItem.createGUIControls(window, x, y+20);
 
-    return 20;
+    // Loop through all items
+    int maxPadding = 0;
+    for (T item : this.items) {
+      Parameter[] parameters = item.getParameters();
+      itemParameters.add(parameters);
+
+      int yPadding = 20 + smallPadding;
+      for (Parameter parameter : parameters) {
+        yPadding += parameter.createGUIControls(window, x+largePadding, y+yPadding);
+        yPadding += smallPadding;
+        parameter.setVisible(false);
+      }
+
+      if (yPadding > maxPadding)
+        maxPadding = yPadding;
+    }
+
+    this.setItemVisible(true);
+
+    return maxPadding;
   }
 
   public void dropListChange(GDropList source, GEvent event) {
-    this.currentItem.setVisible(false);
+    this.setItemVisible(false);
+    this.currentIndex = this.dropList.getSelectedIndex();
+    this.setItemVisible(true);
+  }
 
-    int index = this.dropList.getSelectedIndex();
-    this.currentItem = this.list.get(index);
-
-    this.currentItem.createGUIControls(window, x, y+20);
+  void setItemVisible(boolean visible) {
+    Parameter[] parameters = this.itemParameters.get(this.currentIndex);
+    for (Parameter parameter : parameters)
+      parameter.setVisible(visible);
   }
 }

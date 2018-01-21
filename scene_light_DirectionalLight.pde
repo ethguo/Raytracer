@@ -2,6 +2,7 @@ class DirectionalLight extends Light {
   public Vector3 direction;
   public float intensity;
 
+
   DirectionalLight(Vector3 direction, color colour, float intensity) {
     super(colour);
     this.direction = direction.normalize();
@@ -28,4 +29,12 @@ class DirectionalLight extends Light {
     return this.intensity;
   }
 
+  // gui_Tweakable methods
+
+  Parameter[] getParameters() {
+    return new Parameter[] {
+      new Vector3Parameter(this, "direction", "Direction", this.direction, -5, 5),
+      new FloatParameter(this, "intensity", "Intensity", this.intensity, 0, 5)
+    };
+  }
 }

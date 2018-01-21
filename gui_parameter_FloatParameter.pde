@@ -23,11 +23,15 @@ public class FloatParameter extends Parameter {
   }
 
   int createGUIControls(GWindow window, int x, int y) {
-    return this.createGUIControls(window, x, y, 100, 160);
+    return this.createGUIControls(window, x, y, labelWidth);
   }
 
-  int createGUIControls(GWindow window, int x, int y, int labelWidth, int fieldWidth) {
+  int createGUIControls(GWindow window, int x, int y, int labelWidth) {
     this.createLabel(window, x, y, labelWidth);
+
+    int fieldWidth = tweakerWidth - labelWidth - x - largePadding;
+    if (this.hasSlider)
+      fieldWidth -= sliderWidth;
 
     this.textField = new GTextField(window, x+labelWidth, y, fieldWidth, 20, G4P.SCROLLBARS_NONE);
     this.textField.setText(Float.toString(this.value));
@@ -35,12 +39,11 @@ public class FloatParameter extends Parameter {
     this.textField.addEventHandler(this, "fieldChange");
 
     if (this.hasSlider) {
-      this.slider = new GSlider(window, x+labelWidth, y+20, fieldWidth, 20, 10.0);
+      this.slider = new GSlider(window, tweakerWidth-sliderWidth-largePadding, y, sliderWidth, 20, 10);
       this.slider.setLimits(value, minValue, maxValue);
       this.slider.setNumberFormat(G4P.DECIMAL, 2);
       this.slider.setOpaque(false);
       this.slider.addEventHandler(this, "sliderChange");
-      return 40;
     }
     
     return 20;

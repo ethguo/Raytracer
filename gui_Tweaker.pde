@@ -15,17 +15,19 @@ public class Tweaker {
     G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
     G4P.setCursor(ARROW);
 
-    this.tweakerWindow = GWindow.getWindow(Raytracer.this, "Tweaker", displayWidth/2+250+2, displayHeight/2-400, 300, 800, JAVA2D);
+    int xTweakerWindow = (displayWidth + renderWidth - tweakerWidth) / 2 + 2;
+    int yTweakerWindow = (displayHeight - tweakerHeight) / 2;
+    this.tweakerWindow = GWindow.getWindow(Raytracer.this, "Tweaker", xTweakerWindow, yTweakerWindow, tweakerWidth, tweakerHeight, JAVA2D);
     this.tweakerWindow.noLoop();
     this.tweakerWindow.setActionOnClose(G4P.EXIT_APP);
     this.tweakerWindow.addDrawHandler(this, "tweakerWindowDraw");
 
     this.updateTimer = new GTimer(Raytracer.this, this, "updateTimerTrigger", 100);
 
-    int y = 20;
+    int y = largePadding;
     for(Parameter parameter : this.parameters) {
-      int yPadding = parameter.createGUIControls(this.tweakerWindow, 20, y);
-      y += yPadding + 40;
+      int yPadding = parameter.createGUIControls(this.tweakerWindow, largePadding, y);
+      y += yPadding + largePadding;
     }
 
     this.tweakerWindow.loop();

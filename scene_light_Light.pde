@@ -1,4 +1,4 @@
-abstract class Light extends JSONSerializable {
+abstract class Light extends JSONSerializable implements Tweakable {
   public Vector3 colour;
 
   Light(color colour) {

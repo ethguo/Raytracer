@@ -47,9 +47,9 @@ public class Vector3Parameter extends Parameter {
     this.createLabel(window, x, y);
 
     int yPadding = 0;
-    yPadding += this.xParameter.createGUIControls(window, x+100, y, 20, 140);
-    yPadding += this.yParameter.createGUIControls(window, x+100, y+yPadding, 20, 140);
-    yPadding += this.zParameter.createGUIControls(window, x+100, y+yPadding, 20, 140);
+    yPadding += this.xParameter.createGUIControls(window, x+labelWidth, y, 20);
+    yPadding += this.yParameter.createGUIControls(window, x+labelWidth, y+yPadding, 20);
+    yPadding += this.zParameter.createGUIControls(window, x+labelWidth, y+yPadding, 20);
 
     return yPadding;
   }

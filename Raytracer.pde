@@ -6,14 +6,29 @@ import g4p_controls.*;
 
 String sceneFile = "scene.json";
 
+final int renderWidth = 800;
+final int renderHeight = 800;
+final int tweakerWidth = 360;
+final int tweakerHeight = 800;
+final int largePadding = 20;
+final int smallPadding = 5;
+final int labelWidth = 100;
+final int sliderWidth = 100;
+
 Scene scene;
 Scene frozenScene;
 Tweaker tweaker;
 
+void settings() {
+  size(renderWidth, renderHeight);
+}
+
 void setup() {
-  size(800, 800);
+  int xWindow = (displayWidth - renderWidth - tweakerWidth) / 2;
+  int yWindow = (displayHeight - renderHeight) / 2;
+  surface.setLocation(xWindow, yWindow);
+
   surface.setTitle("Raytracer");
-  surface.setLocation(displayWidth/2-550, displayHeight/2-400);
 
   if (sceneFile.equals("")) {
     scene = new Scene();
@@ -33,6 +48,7 @@ void setup() {
   tweaker.addParameter(new Vector3Parameter(scene, "cameraOrigin", "Camera Origin", scene.cameraOrigin, -5, 5));
   tweaker.addParameter(new Vector3Parameter(scene, "skyColor", "Sky Color", scene.skyColor, true));
   tweaker.addParameter(new ListParameter<SceneObject>(scene, "sceneObjects", "Scene Objects", scene.sceneObjects));
+  tweaker.addParameter(new ListParameter<Light>(scene, "lights", "Lights", scene.lights));
 
   tweaker.draw();
 
