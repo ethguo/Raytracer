@@ -110,3 +110,8 @@ void drawGrid(float cellWidth, float cellHeight) {
   for (int y = 0; y < height; y += cellHeight)
     line(0, y, width, y);
 }
+
+/* Next:
+    * Design Document
+    * RGB Albedo (see https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading)
+    * Reflection and Refraction (https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel)
