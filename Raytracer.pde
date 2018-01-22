@@ -116,3 +116,4 @@ void drawGrid(float cellWidth, float cellHeight) {
     * RGB Albedo (see https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading)
     * Specular - Phong/BRDF (https://www.scratchapixel.com/lessons/3d-basic-rendering/phong-shader-BRDF)
     * Reflection and Refraction (https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel)
+ */

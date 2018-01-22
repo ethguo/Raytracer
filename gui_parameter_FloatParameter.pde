@@ -3,6 +3,7 @@ public class FloatParameter extends Parameter {
   float minValue;
   float maxValue;
   boolean hasSlider = false;
+  float valueScaling = 1;
 
   private boolean propagatingChange = false;
 
@@ -12,7 +13,6 @@ public class FloatParameter extends Parameter {
   FloatParameter(Object obj, String fieldName, String labelText, float initialValue) {
     super(labelText, obj, fieldName);
     this.value = initialValue;
-    this.labelText = labelText;
   }
 
   FloatParameter(Object obj, String fieldName, String labelText, float initialValue, float minValue, float maxValue) {
@@ -20,6 +20,11 @@ public class FloatParameter extends Parameter {
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.hasSlider = true;
+  }
+
+  FloatParameter(Object obj, String fieldName, String labelText, float initialValue, float minValue, float maxValue, float valueScaling) {
+    this(obj, fieldName, labelText, initialValue, minValue, maxValue);
+    this.valueScaling = valueScaling;
   }
 
   int createGUIControls(GWindow window, int x, int y) {
@@ -65,7 +70,7 @@ public class FloatParameter extends Parameter {
         this.propagatingChange = true;
         this.slider.setValue(this.value);
       }
-      this.updateValue(this.value);
+      this.updateValue(this.value * valueScaling);
     }
   }
 
@@ -74,7 +79,7 @@ public class FloatParameter extends Parameter {
     if (!this.propagatingChange && event == GEvent.VALUE_STEADY) {
       this.value = this.slider.getValueF();
       this.textField.setText(str(this.value));
-      this.updateValue(this.value);
+      this.updateValue(this.value * valueScaling);
     }
     this.propagatingChange = false;
   }

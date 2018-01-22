@@ -14,7 +14,6 @@ public class Vector3Parameter extends Parameter {
   Vector3Parameter(Object obj, String fieldName, String labelText, Vector3 initialValue) {
     super(labelText, obj, fieldName);
     this.vector = initialValue;
-    this.labelText = labelText;
     this.hasSliders = false;
     this.isColor = false;
 
@@ -38,9 +37,9 @@ public class Vector3Parameter extends Parameter {
     this(obj, fieldName, labelText, initialValue);
     this.isColor = isColor;
 
-    this.xParameter = new FloatParameter(this.vector, "x", "R", this.vector.x*255, 0, 255);
-    this.yParameter = new FloatParameter(this.vector, "y", "G", this.vector.y*255, 0, 255);
-    this.zParameter = new FloatParameter(this.vector, "z", "B", this.vector.z*255, 0, 255);
+    this.xParameter = new FloatParameter(this.vector, "x", "R", this.vector.x*255, 0, 255, 1.0/255);
+    this.yParameter = new FloatParameter(this.vector, "y", "G", this.vector.y*255, 0, 255, 1.0/255);
+    this.zParameter = new FloatParameter(this.vector, "z", "B", this.vector.z*255, 0, 255, 1.0/255);
   }
 
   int createGUIControls(GWindow window, int x, int y) {
@@ -52,13 +51,6 @@ public class Vector3Parameter extends Parameter {
     yPadding += this.zParameter.createGUIControls(window, x+labelWidth, y+yPadding, 20);
 
     return yPadding;
-  }
-
-  public void update(float x) {
-    Vector3 value = this.vector;
-    if (this.isColor)
-      value = value.times(1/255.0);
-    this.updateValue(value);
   }
 
   void setVisible(boolean visible) {
