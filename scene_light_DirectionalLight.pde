@@ -36,10 +36,10 @@ class DirectionalLight extends Light {
 
   // gui_Tweakable methods
 
-  Parameter[] getParameters() {
-    return new Parameter[] {
-      new Vector3Parameter(this, "direction", "Direction", this.direction, -5, 5),
-      new FloatParameter(this, "intensity", "Intensity", this.intensity, 0, 5)
-    };
+  ArrayList<Parameter> getParameters() {
+    ArrayList<Parameter> parameters = super.getParameters();
+    parameters.add(0, new Vector3Parameter(this, "direction", "Direction", this.direction, -5, 5));
+    parameters.add(1, new FloatParameter(this, "intensity", "Intensity", this.intensity, 0, 5));
+    return parameters;
   }
 }

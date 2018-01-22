@@ -1,4 +1,4 @@
 interface Tweakable {
   String getName();
-  Parameter[] getParameters();
+  ArrayList<Parameter> getParameters();
 }

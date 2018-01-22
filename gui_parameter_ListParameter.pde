@@ -1,6 +1,6 @@
 public class ListParameter<T extends Tweakable> extends Parameter {
   ArrayList<T> items;
-  ArrayList<Parameter[]> itemParameters;
+  ArrayList<ArrayList<Parameter>> itemParameters;
   int currentIndex;
 
   private GWindow window;
@@ -14,7 +14,7 @@ public class ListParameter<T extends Tweakable> extends Parameter {
     this.labelText = labelText;
 
     this.currentIndex = 0;
-    this.itemParameters = new ArrayList<Parameter[]>(items.size());
+    this.itemParameters = new ArrayList<ArrayList<Parameter>>(items.size());
   }
 
   int createGUIControls(GWindow window, int x, int y) {
@@ -35,7 +35,7 @@ public class ListParameter<T extends Tweakable> extends Parameter {
     // Loop through all items
     int maxPadding = 0;
     for (T item : this.items) {
-      Parameter[] parameters = item.getParameters();
+      ArrayList<Parameter> parameters = item.getParameters();
       itemParameters.add(parameters);
 
       int yPadding = 20 + smallPadding;
@@ -61,7 +61,7 @@ public class ListParameter<T extends Tweakable> extends Parameter {
   }
 
   void setItemVisible(boolean visible) {
-    Parameter[] parameters = this.itemParameters.get(this.currentIndex);
+    ArrayList<Parameter> parameters = this.itemParameters.get(this.currentIndex);
     for (Parameter parameter : parameters)
       parameter.setVisible(visible);
   }

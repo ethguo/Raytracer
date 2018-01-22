@@ -21,6 +21,12 @@ abstract class SceneObject extends JSONSerializable implements Tweakable {
     return this.getClass().getSimpleName();
   }
 
+  ArrayList<Parameter> getParameters() {
+    ArrayList<Parameter> parameters = new ArrayList<Parameter>();
+    parameters.add(new FloatParameter(this, "albedo", "Albedo", this.albedo, 0, 1));
+    return parameters;
+  }
+
   abstract float rayIntersect(Ray ray);
   abstract Vector3 getNormal(Vector3 point);
 }

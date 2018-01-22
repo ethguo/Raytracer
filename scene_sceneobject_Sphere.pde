@@ -52,10 +52,10 @@ class Sphere extends SceneObject {
 
   // gui_Tweakable methods
 
-  Parameter[] getParameters() {
-    return new Parameter[] {
-      new Vector3Parameter(this, "center", "Center", this.center, -5, 5),
-      new FloatParameter(this, "radius", "Radius", this.radius, 0, 5)
-    };
+  ArrayList<Parameter> getParameters() {
+    ArrayList<Parameter> parameters = super.getParameters();
+    parameters.add(new Vector3Parameter(this, "center", "Center", this.center, -5, 5));
+    parameters.add(new FloatParameter(this, "radius", "Radius", this.radius, 0, 5));
+    return parameters;
   }
 }
