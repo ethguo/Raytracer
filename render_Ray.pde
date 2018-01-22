@@ -7,21 +7,25 @@ class Ray {
   float tHit;
 
   Ray(Vector3 origin, Vector3 direction) {
+    this(origin, direction, Float.POSITIVE_INFINITY);
+  }
+
+  Ray(Vector3 origin, Vector3 direction, float tMax) {
     this.origin = origin;
     this.direction = direction;
+    this.tHit = tMax;
   }
 
   String toString() {
     return this.origin.toString() + " + t" + this.direction.toString();
   }
 
-  Vector3 solve(float t) {
+  Vector3 getPoint(float t) {
     return this.origin.plus(this.direction.times(t));
   }
 
-  boolean cast() {
-    this.tHit = Float.POSITIVE_INFINITY;
-    for (SceneObject sceneObject : frozenScene.sceneObjects) {
+  boolean trace(Scene scene) {
+    for (SceneObject sceneObject : scene.sceneObjects) {
       float tHitObject = sceneObject.rayIntersect(this);
       if (tHitObject > 0 && tHitObject < this.tHit) {
         this.tHit = tHitObject;
@@ -32,29 +36,29 @@ class Ray {
     if (this.hitObject == null)
       return false;
 
-    this.hitPoint = this.solve(this.tHit);
+    this.hitPoint = this.getPoint(this.tHit);
     return true;
   }
 
-  Vector3 getPointShading() {
+  Vector3 getPointShading(Scene scene) {
     Vector3 normal = this.hitObject.getNormal(this.hitPoint);
 
     // Facing Ratio shading method
-    // hit.colour = max(0, -ray.direction.dot(normal)) * 255;
+    // Vector3 pointShading = max(0, -ray.direction.dot(normal)) * 255;
 
     Vector3 pointShading = new Vector3();
 
-    for (Light light : frozenScene.lights) {
+    for (Light light : scene.lights) {
       float lightIntensity = light.getIntensity(this.hitPoint);
-      Vector3 lightDirection = light.getDirection(this.hitPoint);
-      Vector3 negLightDirection = lightDirection.times(-1);
+      float lightDistance = light.getDistance(this.hitPoint);
+      Vector3 lightDirection = light.getIncidentDirection(this.hitPoint);
 
-      Ray shadowRay = new Ray(this.hitPoint.plus(normal.times(frozenScene.shadowBias)), negLightDirection);
-      boolean shadow = shadowRay.cast();
+      Ray shadowRay = new Ray(this.hitPoint.plus(normal.times(scene.shadowBias)), lightDirection, lightDistance);
+      boolean shadow = shadowRay.trace(scene);
       if (!shadow) {
         float intensity = lightIntensity
                         * this.hitObject.albedo / PI
-                        * max(0, normal.dot(negLightDirection));
+                        * max(0, normal.dot(lightDirection));
 
         pointShading = pointShading.plus(light.colour.times(intensity));
       }

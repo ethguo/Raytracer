@@ -20,6 +20,7 @@ abstract class Light extends JSONSerializable implements Tweakable {
     return this.getClass().getSimpleName();
   }
 
-  abstract Vector3 getDirection(Vector3 point);
+  abstract Vector3 getIncidentDirection(Vector3 point);
   abstract float getIntensity(Vector3 point);
+  abstract float getDistance(Vector3 point);
 }

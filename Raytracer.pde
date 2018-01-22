@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Constructor;
 import g4p_controls.*;
 
-String sceneFile = "scene.json";
+String sceneFile = "";
 
 final int renderWidth = 800;
 final int renderHeight = 800;
@@ -71,11 +71,10 @@ void draw() {
       // print("Pixel[" + imageX + ", " + imageY + "] ");
       Ray primaryRay = getPrimaryRay(imageX, imageY);
 
-      boolean hit = primaryRay.cast();
+      boolean hit = primaryRay.trace(frozenScene);
       if (hit) {
-        Vector3 pointShading = primaryRay.getPointShading();
-        color pointColor = pointShading.toColorPrimitive();
-        pixels[imageY*width+imageX] = pointColor;
+        Vector3 pointShading = primaryRay.getPointShading(frozenScene);
+        pixels[imageY*width+imageX] = pointShading.toColorPrimitive();
       }
       else {
         pixels[imageY*width+imageX] = frozenScene.skyColor.toColorPrimitive();
@@ -111,5 +110,3 @@ void drawGrid(float cellWidth, float cellHeight) {
   for (int y = 0; y < height; y += cellHeight)
     line(0, y, width, y);
 }
-
-// Next: https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/ligth-and-shadows

@@ -48,6 +48,10 @@ class Vector3 extends JSONSerializable {
     return sqrt(x*x + y*y + z*z);
   }
 
+  float getMagnitudeSquared() {
+    return x*x + y*y + z*z;
+  }
+
   Vector3 normalize() {
     float magnitude = this.getMagnitude();
     if (magnitude == 0)

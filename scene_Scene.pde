@@ -9,19 +9,19 @@ class Scene extends JSONSerializable {
   Scene() {
     this.fov = 75;
     this.shadowBias = 1e-4;
-    this.cameraOrigin = new Vector3(0, 0, 0);
+    this.cameraOrigin = new Vector3(0, 2, 0);
     this.skyColor = new Vector3(#8CBED6);
 
     this.sceneObjects = new ArrayList<SceneObject>();
-    this.sceneObjects.add(new Sphere(new Vector3(0, -1, -4), 1, 0.9));
-    this.sceneObjects.add(new Sphere(new Vector3(1, 0, -7), 2, 0.8));
-    this.sceneObjects.add(new Sphere(new Vector3(-1, 1.5, -5), 0.33, 0.9));
-    this.sceneObjects.add(new Plane(new Vector3(0, -2, 0), new Vector3(0, 1, 0), 0.6));
+    this.sceneObjects.add(new Sphere(new Vector3(0, 1, -4), 1, 0.9));
+    this.sceneObjects.add(new Sphere(new Vector3(1, 2, -7), 2, 0.9));
+    this.sceneObjects.add(new Sphere(new Vector3(-1, 3.5, -4.5), 0.33, 0.9));
+    this.sceneObjects.add(new Plane(new Vector3(0, 0, 0), new Vector3(0, 1, 0), 0.6));
 
     this.lights = new ArrayList<Light>();
-    this.lights.add(new DirectionalLight(new Vector3(0, -1, 0), #CCCCCC, 1));
-    this.lights.add(new DirectionalLight(new Vector3(1, -1, -1), #FFCC99, PI));
-    this.lights.add(new DirectionalLight(new Vector3(-1, -0.5, -0.5), #3399FF, 1.5));
+    this.lights.add(new DirectionalLight(new Vector3(0, -1, 0), #FFFFFF, 0.5));
+    this.lights.add(new PointLight(new Vector3(-4, 5, 0), #FFCC99, 2000));
+    this.lights.add(new PointLight(new Vector3(5, 1, -2), #3399FF, 300));
   }
 
   public Scene(JSONObject j) {
