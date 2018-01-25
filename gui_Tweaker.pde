@@ -5,6 +5,7 @@ public class Tweaker {
   private GWindow tweakerWindow;
   private GTimer updateTimer;
   private GButton saveButton;
+  private GButton loadButton;
 
   Tweaker(PApplet applet) {
     this.applet = applet;
@@ -25,8 +26,11 @@ public class Tweaker {
 
     this.updateTimer = new GTimer(Raytracer.this, this, "updateTimerTrigger", 100);
 
-    this.saveButton = new GButton(this.tweakerWindow, tweakerWidth/2-50, tweakerHeight-largePadding-20, 100, 20, "Save Scene");
+    this.saveButton = new GButton(this.tweakerWindow, (tweakerWidth-largePadding)/2-100, tweakerHeight-largePadding-20, 100, 20, "Save Scene");
     this.saveButton.addEventHandler(this, "saveButtonClicked");
+
+    this.loadButton = new GButton(this.tweakerWindow, (tweakerWidth+largePadding)/2, tweakerHeight-largePadding-20, 100, 20, "Load Scene");
+    this.loadButton.addEventHandler(this, "loadButtonClicked");
 
     int y = largePadding;
     for(Parameter parameter : this.parameters) {
@@ -46,6 +50,11 @@ public class Tweaker {
     this.parameters.add(parameter);
   }
 
+  void destroy() {
+    this.tweakerWindow.setActionOnClose(G4P.CLOSE_WINDOW);
+    this.tweakerWindow.close();
+  }
+
   synchronized public void tweakerWindowDraw(PApplet appc, GWinData data) {
     appc.background(230);
   }
@@ -56,5 +65,9 @@ public class Tweaker {
 
   public void saveButtonClicked(GButton source, GEvent event) {
     selectOutput("Select file", "saveScene", new File(dataPath("my-scene.json")));
+  }
+
+  public void loadButtonClicked(GButton source, GEvent event) {
+    selectInput("Select file", "loadScene", new File(dataPath("my-scene.json")));
   }
 }

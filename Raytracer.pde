@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Constructor;
 import g4p_controls.*;
 
-String sceneFile = "";
+String sceneFile = "scene.json";
 
 final int renderWidth = 800;
 final int renderHeight = 800;
@@ -40,15 +40,8 @@ void setup() {
     println("Scene loaded from " + sceneFile);
   }
 
-  tweaker = new Tweaker(this);
-  tweaker.addParameter(new FloatParameter(scene, "fov", "Field of View", scene.fov, 5.0, 175.0));
-  tweaker.addParameter(new FloatParameter(scene, "shadowBias", "Shadow Bias", scene.shadowBias));
-  tweaker.addParameter(new Vector3Parameter(scene, "cameraOrigin", "Camera Origin", scene.cameraOrigin, -5, 5));
-  tweaker.addParameter(new Vector3Parameter(scene, "skyColor", "Sky Color", scene.skyColor, true));
-  tweaker.addParameter(new ListParameter<SceneObject>(scene, "sceneObjects", "Scene Objects", scene.sceneObjects));
-  tweaker.addParameter(new ListParameter<Light>(scene, "lights", "Lights", scene.lights));
-
-  tweaker.draw();
+  // Create the second GUI window with the controls.
+  createTweaker();
 
   noLoop();
 }
@@ -58,15 +51,11 @@ void draw() {
 
   loadPixels();
 
-  // drawGrid(imagePixelWidth, imagePixelWidth);
-  // noStroke();
-
   // Make a deep copy of the scene, so that it won't be affected if the scene is updated by the GUI in the middle of drawing.
   frozenScene = scene.copy();
 
   for (int imageY = 0; imageY < height; imageY++) {
     for (int imageX = 0; imageX < width; imageX++) {
-      // print("Pixel[" + imageX + ", " + imageY + "] ");
       Ray primaryRay = getPrimaryRay(imageX, imageY);
 
       boolean hit = primaryRay.trace(frozenScene);
@@ -100,24 +89,45 @@ Ray getPrimaryRay(int imageX, int imageY) {
   return new Ray(frozenScene.cameraOrigin, direction);
 }
 
-void drawGrid(float cellWidth, float cellHeight) {
-  stroke(0);
-  for (int x = 0; x < width; x += cellWidth)
-    line(x, 0, x, height);
-
-  for (int y = 0; y < height; y += cellHeight)
-    line(0, y, width, y);
-}
-
 public void saveScene(File file) {
   if (file == null)
-    println("Selection canceled.");
+    println("Selection canceled");
   else {
     String path = file.getAbsolutePath();
 
     JSONObject j = scene.toJSONObject();
     saveJSONObject(j, path);
+    println("Scene saved to " + path);
   }
+}
+
+public void loadScene(File file) {
+  if (file == null)
+    println("Selection canceled");
+  else {
+    String path = file.getAbsolutePath();
+
+    JSONObject j = loadJSONObject(path);
+    scene = new Scene(j);
+    println("Scene loaded from " + path);
+
+    tweaker.destroy();
+    createTweaker();
+    redraw();
+  }
+}
+
+void createTweaker() {
+  tweaker = new Tweaker(this);
+  
+  tweaker.addParameter(new FloatParameter(scene, "fov", "Field of View", scene.fov, 5.0, 175.0));
+  tweaker.addParameter(new FloatParameter(scene, "shadowBias", "Shadow Bias", scene.shadowBias));
+  tweaker.addParameter(new Vector3Parameter(scene, "cameraOrigin", "Camera Origin", scene.cameraOrigin, -5, 5));
+  tweaker.addParameter(new Vector3Parameter(scene, "skyColor", "Sky Color", scene.skyColor, true));
+  tweaker.addParameter(new ListParameter<SceneObject>(scene, "sceneObjects", "Scene Objects", scene.sceneObjects));
+  tweaker.addParameter(new ListParameter<Light>(scene, "lights", "Lights", scene.lights));
+
+  tweaker.draw();
 }
 
 /* Next:
