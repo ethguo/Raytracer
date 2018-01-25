@@ -114,7 +114,6 @@ public void saveScene(File file) {
     println("Selection canceled.");
   else {
     String path = file.getAbsolutePath();
-    println("User selected " + path);
 
     JSONObject j = scene.toJSONObject();
     saveJSONObject(j, path);
