@@ -2,7 +2,7 @@ class Sphere extends SceneObject {
   public Vector3 center;
   public float radius;
 
-  Sphere(Vector3 center, float radius, float albedo) {
+  Sphere(Vector3 center, float radius, color albedo) {
     super(albedo);
     this.center = center;
     this.radius = radius;

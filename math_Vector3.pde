@@ -75,6 +75,10 @@ class Vector3 extends JSONSerializable {
     return new Vector3(scalar*this.x, scalar*this.y, scalar*this.z);
   }
 
+  Vector3 componentTimes(Vector3 other) {
+    return new Vector3(this.x*other.x, this.y*other.y, this.z*other.z);
+  }
+
   float dot(Vector3 other) {
     return this.x*other.x + this.y*other.y + this.z*other.z;
   }

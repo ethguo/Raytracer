@@ -13,15 +13,15 @@ class Scene extends JSONSerializable {
     this.skyColor = new Vector3(#8CBED6);
 
     this.sceneObjects = new ArrayList<SceneObject>();
-    this.sceneObjects.add(new Sphere(new Vector3(0, 1, -4), 1, 0.9));
-    this.sceneObjects.add(new Sphere(new Vector3(1, 2, -7), 2, 0.9));
-    this.sceneObjects.add(new Sphere(new Vector3(-1, 3.5, -4.5), 0.33, 0.9));
-    this.sceneObjects.add(new Plane(new Vector3(0, 0, 0), new Vector3(0, 1, 0), 0.6));
+    this.sceneObjects.add(new Sphere(new Vector3(0, 1, -4), 1, #E6E6E6));
+    this.sceneObjects.add(new Sphere(new Vector3(1, 2, -7), 2, #FFFF66));
+    this.sceneObjects.add(new Sphere(new Vector3(-1, 3.5, -4.5), 0.33, #E6E6E6));
+    this.sceneObjects.add(new Plane(new Vector3(0, 0, 0), new Vector3(0, 1, 0), #999999));
 
     this.lights = new ArrayList<Light>();
     this.lights.add(new DirectionalLight(new Vector3(0, -1, 0), #FFFFFF, 0.5));
     this.lights.add(new PointLight(new Vector3(-4, 5, 0), #FFCC99, 2000));
-    this.lights.add(new PointLight(new Vector3(5, 1, -2), #3399FF, 300));
+    this.lights.add(new PointLight(new Vector3(5, 1, -2), #3399FF, 400));
   }
 
   public Scene(JSONObject j) {

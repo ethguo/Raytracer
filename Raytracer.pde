@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Constructor;
 import g4p_controls.*;
 
-String sceneFile = "scene.json";
+String sceneFile = "";
 
 final int renderWidth = 800;
 final int renderHeight = 800;
@@ -132,7 +132,6 @@ void createTweaker() {
 
 /* Next:
     * Design Document
-    * RGB Albedo (see https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading)
     * Specular - Phong/BRDF (https://www.scratchapixel.com/lessons/3d-basic-rendering/phong-shader-BRDF)
     * Reflection and Refraction (https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel)
  */

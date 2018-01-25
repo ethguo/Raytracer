@@ -2,7 +2,7 @@ class Plane extends SceneObject {
   public Vector3 point;
   public Vector3 normal;
 
-  Plane(Vector3 point, Vector3 normal, float albedo) {
+  Plane(Vector3 point, Vector3 normal, color albedo) {
     super(albedo);
     this.point = point;
     this.normal = normal.normalize();

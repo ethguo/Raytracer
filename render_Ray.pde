@@ -56,11 +56,10 @@ class Ray {
       Ray shadowRay = new Ray(this.hitPoint.plus(normal.times(scene.shadowBias)), lightDirection, lightDistance);
       boolean shadow = shadowRay.trace(scene);
       if (!shadow) {
-        float intensity = lightIntensity
-                        * this.hitObject.albedo / PI
-                        * max(0, normal.dot(lightDirection));
+        float intensity = lightIntensity / PI * max(0, normal.dot(lightDirection));
+        Vector3 shading = light.colour.componentTimes(this.hitObject.albedo);
 
-        pointShading = pointShading.plus(light.colour.times(intensity));
+        pointShading = pointShading.plus(shading.times(intensity));
       }
     }
     return pointShading;

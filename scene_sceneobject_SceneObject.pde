@@ -1,19 +1,19 @@
 abstract class SceneObject extends JSONSerializable implements Tweakable {
   public String name;
-  public float albedo;
+  public Vector3 albedo;
 
-  SceneObject(float albedo) {
-    this.albedo = albedo;
+  SceneObject(color albedo) {
+    this.albedo = new Vector3(albedo);
   }
 
   public SceneObject(JSONObject j) {
     super(j);
-    this.albedo = j.getFloat("albedo");
+    this.albedo = new Color(j.getJSONObject("albedo")).toVector3();
   }
 
   JSONObject toJSONObject() {
     JSONObject j = super.toJSONObject();
-    j.setFloat("albedo", this.albedo);
+    j.setJSONObject("albedo", new Color(this.albedo).toJSONObject());
     return j;
   }
 
@@ -23,7 +23,7 @@ abstract class SceneObject extends JSONSerializable implements Tweakable {
 
   ArrayList<Parameter> getParameters() {
     ArrayList<Parameter> parameters = new ArrayList<Parameter>();
-    parameters.add(new FloatParameter(this, "albedo", "Albedo", this.albedo, 0, 1));
+    parameters.add(new Vector3Parameter(this, "albedo", "Albedo", this.albedo, true));
     return parameters;
   }
 
