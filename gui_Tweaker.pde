@@ -4,6 +4,7 @@ public class Tweaker {
   private PApplet applet;
   private GWindow tweakerWindow;
   private GTimer updateTimer;
+  private GButton saveButton;
 
   Tweaker(PApplet applet) {
     this.applet = applet;
@@ -23,6 +24,9 @@ public class Tweaker {
     this.tweakerWindow.addDrawHandler(this, "tweakerWindowDraw");
 
     this.updateTimer = new GTimer(Raytracer.this, this, "updateTimerTrigger", 100);
+
+    this.saveButton = new GButton(this.tweakerWindow, tweakerWidth/2-50, tweakerHeight-largePadding-20, 100, 20, "Save Scene");
+    this.saveButton.addEventHandler(this, "saveButtonClicked");
 
     int y = largePadding;
     for(Parameter parameter : this.parameters) {
@@ -48,5 +52,9 @@ public class Tweaker {
 
   public void updateTimerTrigger(GTimer source) {
     redraw();
+  }
+
+  public void saveButtonClicked(GButton source, GEvent event) {
+    selectOutput("Select file", "saveScene", new File(dataPath("my-scene.json")));
   }
 }

@@ -39,8 +39,6 @@ void setup() {
     scene = new Scene(j);
     println("Scene loaded from " + sceneFile);
   }
-  // JSONObject j2 = scene.toJSONObject();
-  // saveJSONObject(j2, "data/scene.json");
 
   tweaker = new Tweaker(this);
   tweaker.addParameter(new FloatParameter(scene, "fov", "Field of View", scene.fov, 5.0, 175.0));
@@ -109,6 +107,18 @@ void drawGrid(float cellWidth, float cellHeight) {
 
   for (int y = 0; y < height; y += cellHeight)
     line(0, y, width, y);
+}
+
+public void saveScene(File file) {
+  if (file == null)
+    println("Selection canceled.");
+  else {
+    String path = file.getAbsolutePath();
+    println("User selected " + path);
+
+    JSONObject j = scene.toJSONObject();
+    saveJSONObject(j, path);
+  }
 }
 
 /* Next:
