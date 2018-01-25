@@ -1,117 +1,117 @@
 {
+  "type": "Scene",
   "skyColor": {
+    "type": "Color",
     "red": 140,
     "green": 190,
-    "blue": 214,
-    "type": "Color"
+    "blue": 214
   },
   "cameraOrigin": {
+    "type": "Vector3",
     "x": 0,
-    "y": 0,
-    "z": 0,
-    "type": "Vector3"
+    "y": 2,
+    "z": 0
   },
   "sceneObjects": [
     {
-      "center": {
-        "x": 0,
-        "y": -1,
-        "z": -4,
-        "type": "Vector3"
-      },
       "type": "Sphere",
+      "center": {
+        "type": "Vector3",
+        "x": 0,
+        "y": 1,
+        "z": -4
+      },
       "radius": 1,
       "albedo": 0.9
     },
     {
-      "center": {
-        "x": 1,
-        "y": 0,
-        "z": -7,
-        "type": "Vector3"
-      },
       "type": "Sphere",
+      "center": {
+        "type": "Vector3",
+        "x": 1,
+        "y": 2,
+        "z": -7
+      },
       "radius": 2,
-      "albedo": 0.8
+      "albedo": 0.9
     },
     {
-      "center": {
-        "x": -1,
-        "y": 1.5,
-        "z": -5,
-        "type": "Vector3"
-      },
       "type": "Sphere",
+      "center": {
+        "type": "Vector3",
+        "x": -1,
+        "y": 3.5,
+        "z": -4.5
+      },
       "radius": 0.33,
       "albedo": 0.9
     },
     {
+      "type": "Plane",
       "normal": {
+        "type": "Vector3",
         "x": 0,
         "y": 1,
-        "z": 0,
-        "type": "Vector3"
+        "z": 0
       },
-      "type": "Plane",
       "point": {
+        "type": "Vector3",
         "x": 0,
-        "y": -2,
-        "z": 0,
-        "type": "Vector3"
+        "y": 0,
+        "z": 0
       },
       "albedo": 0.6
     }
   ],
   "shadowBias": 1.0E-4,
-  "type": "Scene",
   "fov": 75,
   "lights": [
     {
-      "intensity": 1,
-      "colour": {
-        "red": 204,
-        "green": 204,
-        "blue": 204,
-        "type": "Color"
-      },
       "type": "DirectionalLight",
+      "intensity": 0.5,
+      "colour": {
+        "type": "Color",
+        "red": 255,
+        "green": 255,
+        "blue": 255
+      },
       "direction": {
+        "type": "Vector3",
         "x": 0,
         "y": -1,
-        "z": 0,
-        "type": "Vector3"
+        "z": 0
       }
     },
     {
-      "intensity": 3,
+      "type": "PointLight",
+      "intensity": 2000,
       "colour": {
+        "type": "Color",
         "red": 255,
         "green": 204,
-        "blue": 153,
-        "type": "Color"
+        "blue": 153
       },
-      "type": "DirectionalLight",
-      "direction": {
-        "x": 1,
-        "y": -1,
-        "z": -1,
-        "type": "Vector3"
+      "position": {
+        "type": "Vector3",
+        "x": -4,
+        "y": 5,
+        "z": 0
       }
     },
     {
-      "intensity": 1.5,
+      "type": "PointLight",
+      "intensity": 300,
       "colour": {
+        "type": "Color",
         "red": 51,
         "green": 153,
-        "blue": 255,
-        "type": "Color"
+        "blue": 255
       },
-      "type": "DirectionalLight",
-      "direction": {
-        "x": -1,
-        "y": -0.5,
-        "z": -0.5,
-        "type": "Vector3"
+      "position": {
+        "type": "Vector3",
+        "x": 5,
+        "y": 1,
+        "z": -2
       }
     }
   ]
