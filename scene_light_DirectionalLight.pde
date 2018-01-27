@@ -4,13 +4,15 @@
  * In real life, the sun can usually be considered a directional light.
  */
 class DirectionalLight extends Light {
+  /** The direction vector towards the light. */
   public Vector3 direction;
+  /** The intensity of the light. */
   public float intensity;
 
   /**
    * Constructs a DirectionalLight.
-   * @param direction the direction vector of the light.
-   * @param colour    the colour of the light (passed on to {@link Light(color)}).
+   * @param direction the direction the light is shining.
+   * @param colour    the color of the light (passed on to {@link Light(color)}).
    * @param intensity the intensity of the light.
    */
   DirectionalLight(Vector3 direction, color colour, float intensity) {

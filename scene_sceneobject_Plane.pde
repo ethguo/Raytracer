@@ -2,7 +2,9 @@
  * Represents a one-sided infinite plane. The plane is only visible from the side that the normal vector points toward.
  */
 class Plane extends SceneObject {
+  /** A point which, by definition, the plane passes through. */
   public Vector3 origin;
+  /** The normal vector of the plane. The plane is only visible from the side that this vector points toward. */
   public Vector3 normal;
 
   /**

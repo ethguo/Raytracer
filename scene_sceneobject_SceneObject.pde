@@ -2,7 +2,9 @@
  * Represents any solid object or surface that can be hit by a ray.
  */
 abstract class SceneObject extends JSONSerializable implements Tweakable {
+  /** The name of this object, as displayed in the dropdown list. */
   public String name;
+  /** The amount of light reflect by this object, in each component of RGB. */
   public Vector3 albedo;
 
   /**
@@ -14,23 +16,30 @@ abstract class SceneObject extends JSONSerializable implements Tweakable {
   }
 
   /**
-   * Constructs a SceneObject object from the values in the JSONObject (JSON deserialization).
+   * Constructs a SceneObject SceneObjectct from the values in the JSONObject (JSON deserialization).
    * @param j the JSONObject containing the values for this object.
    */
   public SceneObject(JSONObject j) {
     super(j);
     this.albedo = new Color(j.getJSONObject("albedo")).toVector3();
+    this.name = j.getString("name");
   }
 
   JSONObject toJSONObject() {
     JSONObject j = super.toJSONObject();
     j.setJSONObject("albedo", new Color(this.albedo).toJSONObject());
+    if (this.name != null)
+      j.setString("name", this.name);
     return j;
   }
 
   // implements Tweakable
   String getName() {
-    return this.getClass().getSimpleName();
+    String typeName = "(" + this.getClass().getSimpleName() + ")";
+    if (this.name != null)
+      return this.name + " " + typeName;
+    else
+      return typeName;
   }
 
   // implements Tweakable
@@ -49,7 +58,7 @@ abstract class SceneObject extends JSONSerializable implements Tweakable {
   abstract float rayIntersect(Ray ray);
 
   /**
-   * Returns the normal vector to the surface at the given point.
+   * Get the normal vector to the surface at the given point.
    * @param  point the point in 3D space at which to get the normal vector.
    * @return       the normal vector to the surface at the point.
    */

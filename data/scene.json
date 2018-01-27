@@ -20,6 +20,7 @@
         "type": "Vector3"
       },
       "type": "Sphere",
+      "name": "Sphere 1",
       "radius": 1,
       "albedo": {
         "red": 230,
@@ -36,6 +37,7 @@
         "type": "Vector3"
       },
       "type": "Sphere",
+      "name": "Sphere 2",
       "radius": 2,
       "albedo": {
         "red": 230,
@@ -52,6 +54,7 @@
         "type": "Vector3"
       },
       "type": "Sphere",
+      "name": "Red ball",
       "radius": 0.33,
       "albedo": {
         "red": 255,
@@ -116,7 +119,8 @@
         "z": 0,
         "type": "Vector3"
       },
-      "type": "PointLight"
+      "type": "PointLight",
+      "name": "Spotlight"
     },
     {
       "intensity": 400,
@@ -132,7 +136,8 @@
         "z": -2,
         "type": "Vector3"
       },
-      "type": "PointLight"
+      "type": "PointLight",
+      "name": "Blue wash"
     }
   ]
 }

@@ -2,11 +2,14 @@
  * Represents a generic light source that can illuminate scene objects.
  */
 abstract class Light extends JSONSerializable implements Tweakable {
+  /** The name of this object, as displayed in the dropdown list. */
+  public String name;
+  /** The color of the light, as an RGB vector. */
   public Vector3 colour;
 
   /**
    * Constructs a Light.
-   * @param colour the colour of the light (in RGB).
+   * @param colour the color of the light (in RGB).
    */
   Light(color colour) {
     this.colour = new Color(colour).toVector3();
@@ -19,17 +22,24 @@ abstract class Light extends JSONSerializable implements Tweakable {
   public Light(JSONObject j) {
     super(j);
     this.colour = new Color(j.getJSONObject("colour")).toVector3();
+    this.name = j.getString("name");
   }
 
   JSONObject toJSONObject() {
     JSONObject j = super.toJSONObject();
     j.setJSONObject("colour", new Color(this.colour).toJSONObject());
+    if (this.name != null)
+      j.setString("name", this.name);
     return j;
   }
 
   // implements Tweakable
   String getName() {
-    return this.getClass().getSimpleName();
+    String typeName = "(" + this.getClass().getSimpleName() + ")";
+    if (this.name != null)
+      return this.name + " " + typeName;
+    else
+      return typeName;
   }
 
   // implements Tweakable

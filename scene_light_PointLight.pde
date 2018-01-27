@@ -5,13 +5,15 @@
  * directional light to achieve comparable levels of illumination, because the intensity falls off quadratically with distance.
  */
 class PointLight extends Light {
+  /** the center point (origin) of the light. */
   public Vector3 position;
+  /** The intensity of the light. */
   public float intensity;
 
   /**
    * Constructs a PointLight.
    * @param position  the center point (origin) of the light.
-   * @param colour    the colour of the light (passed on to {@link Light(color)}).
+   * @param colour    the color of the light (passed on to {@link Light(color)}).
    * @param intensity the intensity of the light at the light's origin.
    */
   PointLight(Vector3 position, color colour, float intensity) {

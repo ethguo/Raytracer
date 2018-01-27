@@ -2,7 +2,9 @@
  * Represents a sphere.
  */
 class Sphere extends SceneObject {
+  /** the center point of the sphere. */
   public Vector3 center;
+  /** the radius of the sphere. */
   public float radius;
 
   /**

@@ -1,5 +1,6 @@
 /**
- * Represents a ray that can be traced. After tracing, the hit data is stored in the same Ray object, so the shading at that point can be computed next if desired.
+ * Represents a ray that can be traced. After tracing, the hit data is stored in the same Ray object,
+ * so the shading at that point can be computed later if desired.
  */
 class Ray {
   public Vector3 origin;
