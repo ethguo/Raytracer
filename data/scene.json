@@ -20,7 +20,7 @@
         "type": "Vector3"
       },
       "type": "Sphere",
-      "name": "Sphere 1",
+      "name": "Ball 1",
       "radius": 1,
       "albedo": {
         "red": 230,
@@ -37,7 +37,7 @@
         "type": "Vector3"
       },
       "type": "Sphere",
-      "name": "Sphere 2",
+      "name": "Ball 2",
       "radius": 2,
       "albedo": {
         "red": 230,
@@ -71,6 +71,7 @@
         "type": "Vector3"
       },
       "type": "Plane",
+      "name": "Floor",
       "origin": {
         "x": 0,
         "y": 0,
@@ -89,22 +90,6 @@
   "type": "Scene",
   "fov": 75,
   "lights": [
-    {
-      "intensity": 0.25,
-      "colour": {
-        "red": 255,
-        "green": 255,
-        "blue": 255,
-        "type": "Color"
-      },
-      "type": "DirectionalLight",
-      "direction": {
-        "x": 0,
-        "y": -1,
-        "z": 0,
-        "type": "Vector3"
-      }
-    },
     {
       "intensity": 2000,
       "colour": {
@@ -138,6 +123,23 @@
       },
       "type": "PointLight",
       "name": "Blue wash"
+    },
+    {
+      "intensity": 0.25,
+      "colour": {
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "type": "Color"
+      },
+      "name": "Floodlight",
+      "type": "DirectionalLight",
+      "direction": {
+        "x": 0,
+        "y": -1,
+        "z": 0,
+        "type": "Vector3"
+      }
     }
   ]
 }
