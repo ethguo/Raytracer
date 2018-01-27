@@ -1,20 +1,39 @@
+/**
+ * A dynamically generated GUI control that controls a single float value.
+ */
 public class FloatParameter extends ParameterControl {
-  float value;
-  float minValue;
-  float maxValue;
-  boolean hasSlider = false;
-  float valueScaling = 1;
+  private float value;
+  private float minValue;
+  private float maxValue;
+  private boolean hasSlider = false;
+  private float valueScaling = 1;
 
   private boolean propagatingChange = false;
 
   private GTextField textField;
   private GSlider slider;
 
+  /**
+   * Creates a FloatParameter with no slider.
+   * @param obj          the object that contains the field to be controlled.
+   * @param fieldName    the name of the field on the object that this should control. Should be of type <code>float</code>.
+   * @param labelText    the text displayed beside the control.
+   * @param initialValue the initial value of the textbox.
+   */
   FloatParameter(Object obj, String fieldName, String labelText, float initialValue) {
     super(labelText, obj, fieldName);
     this.value = initialValue;
   }
 
+  /**
+   * Creates a FloatParameter with a slider.
+   * @param obj          the object that contains the field to be controlled.
+   * @param fieldName    the name of the field on the object that this should control. Should be of type <code>float</code>.
+   * @param labelText    the text displayed beside the control.
+   * @param initialValue the initial value of the textbox.
+   * @param minValue     the lower bound of the slider.
+   * @param maxValue     the upper bound of the slider.
+   */
   FloatParameter(Object obj, String fieldName, String labelText, float initialValue, float minValue, float maxValue) {
     this(obj, fieldName, labelText, initialValue);
     this.minValue = minValue;
@@ -22,6 +41,16 @@ public class FloatParameter extends ParameterControl {
     this.hasSlider = true;
   }
 
+  /**
+   * Creates a FloatParameter with a slider.
+   * @param obj          the object that contains the field to be controlled.
+   * @param fieldName    the name of the field on the object that this should control. Should be of type <code>float</code>.
+   * @param labelText    the text displayed beside the control.
+   * @param initialValue the initial value of the textbox.
+   * @param minValue     the lower bound of the slider.
+   * @param maxValue     the upper bound of the slider.
+   * @param valueScaling a factor by which to scale the value before passing it on to the object.
+   */
   FloatParameter(Object obj, String fieldName, String labelText, float initialValue, float minValue, float maxValue, float valueScaling) {
     this(obj, fieldName, labelText, initialValue, minValue, maxValue);
     this.valueScaling = valueScaling;

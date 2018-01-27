@@ -1,17 +1,27 @@
+/**
+ * A dynamically generated GUI element that manages an ArrayList of {@link Tweakable}s and their individual GUI controls.
+ * Uses a dropdown menu to select which object in the list is currently being controlled.
+ */
 public class ListParameter<T extends Tweakable> extends ParameterControl {
-  ArrayList<T> items;
-  ArrayList<ArrayList<ParameterControl>> itemParameters;
-  int currentIndex;
+  private ArrayList<T> items;
+  private ArrayList<ArrayList<ParameterControl>> itemParameters;
+  private int currentIndex;
 
   private GWindow window;
   private int x, y;
 
   private GDropList dropList;
 
+  /**
+   * Creates a ListParameter.
+   * @param obj          the object that contains the field to be controlled.
+   * @param fieldName    the name of the field on the object that this should control. Should be of type <code>ArrayList&lt;T&gt;</code>.
+   * @param labelText    the text displayed beside the control.
+   * @param items        the list of items to be shown in the dropdown menu.
+   */
   ListParameter(Object obj, String fieldName, String labelText, ArrayList<T> items) {
     super(labelText, obj, fieldName);
     this.items = items;
-    this.labelText = labelText;
 
     this.currentIndex = 0;
   }
