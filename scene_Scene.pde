@@ -12,9 +12,7 @@ class Scene extends JSONSerializable {
   /** A list of all the Lights in the scene. */
   public ArrayList<Light> lights;
 
-  /**
-   * Default constructor, will return a hard-coded demo scene.
-   */
+  /** Default constructor, will return a hard-coded demo scene. */
   Scene() {
     this.fov = 75;
     this.shadowBias = 1e-4;
@@ -34,7 +32,7 @@ class Scene extends JSONSerializable {
   }
 
   /**
-   * Construct a Scene object from the values in the JSONObject (JSON deserialization).
+   * Constructs a Scene object from the values in the JSONObject (JSON deserialization).
    * @param j the JSONObject containing the values for this object.
    */
   public Scene(JSONObject j) {

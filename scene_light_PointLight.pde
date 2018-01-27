@@ -8,6 +8,10 @@ class PointLight extends Light {
     this.intensity = intensity;
   }
 
+  /**
+   * Constructs a PointLight object from the values in the JSONObject (JSON deserialization).
+   * @param j the JSONObject containing the values for this object.
+   */
   public PointLight(JSONObject j) {
     super(j);
     this.position = new Vector3(j.getJSONObject("position"));

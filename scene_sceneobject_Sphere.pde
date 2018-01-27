@@ -8,6 +8,10 @@ class Sphere extends SceneObject {
     this.radius = radius;
   }
 
+  /**
+   * Constructs a Sphere object from the values in the JSONObject (JSON deserialization).
+   * @param j the JSONObject containing the values for this object.
+   */
   public Sphere(JSONObject j) {
     super(j);
     this.center = new Vector3(j.getJSONObject("center"));

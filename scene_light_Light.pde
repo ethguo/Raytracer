@@ -5,6 +5,10 @@ abstract class Light extends JSONSerializable implements Tweakable {
     this.colour = new Color(colour).toVector3();
   }
 
+  /**
+   * Constructs a Light object from the values in the JSONObject (JSON deserialization).
+   * @param j the JSONObject containing the values for this object.
+   */
   public Light(JSONObject j) {
     super(j);
     this.colour = new Color(j.getJSONObject("colour")).toVector3();

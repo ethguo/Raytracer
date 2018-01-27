@@ -9,6 +9,10 @@ class DirectionalLight extends Light {
     this.intensity = intensity;
   }
 
+  /**
+   * Constructs a DirectionalLight object from the values in the JSONObject (JSON deserialization).
+   * @param j the JSONObject containing the values for this object.
+   */
   public DirectionalLight(JSONObject j) {
     super(j);
     this.direction = new Vector3(j.getJSONObject("direction")).times(-1).normalize();

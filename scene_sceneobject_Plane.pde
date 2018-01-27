@@ -8,6 +8,10 @@ class Plane extends SceneObject {
     this.normal = normal.normalize();
   }
 
+  /**
+   * Constructs a Plane object from the values in the JSONObject (JSON deserialization).
+   * @param j the JSONObject containing the values for this object.
+   */
   public Plane(JSONObject j) {
     super(j);
     this.point = new Vector3(j.getJSONObject("point"));

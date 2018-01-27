@@ -6,6 +6,10 @@ abstract class SceneObject extends JSONSerializable implements Tweakable {
     this.albedo = new Vector3(albedo);
   }
 
+  /**
+   * Constructs a SceneObject object from the values in the JSONObject (JSON deserialization).
+   * @param j the JSONObject containing the values for this object.
+   */
   public SceneObject(JSONObject j) {
     super(j);
     this.albedo = new Color(j.getJSONObject("albedo")).toVector3();
