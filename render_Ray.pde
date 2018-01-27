@@ -1,3 +1,6 @@
+/**
+ * Represents a ray that can be traced. After tracing, the hit data is stored in the same Ray object, so the shading at that point can be computed next if desired.
+ */
 class Ray {
   public Vector3 origin;
   public Vector3 direction;
@@ -83,7 +86,7 @@ class Ray {
       // These getters will just behave differently depending on the specific type of light.
       float lightIntensity = light.getIntensity(this.hitPoint);
       float lightDistance = light.getDistance(this.hitPoint);
-      Vector3 lightDirection = light.getIncidentDirection(this.hitPoint);
+      Vector3 lightDirection = light.getDirection(this.hitPoint);
 
       Vector3 shadowRayOrigin = this.hitPoint.plus(normal.times(scene.shadowBias));
 

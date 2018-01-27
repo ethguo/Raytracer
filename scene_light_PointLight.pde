@@ -1,7 +1,19 @@
+/**
+ * Represents a light source that radiates light outward in all directions from a single point. Its intensity falls off with distance.
+ * In real life, most artificial sources of light, such as lightbulbs, candles, can be considered point lights.
+ * Note that the intensity of a point light will usually have to be orders of magnitude higher than that of a similar
+ * directional light to achieve comparable levels of illumination, because the intensity falls off quadratically with distance.
+ */
 class PointLight extends Light {
   public Vector3 position;
   public float intensity;
 
+  /**
+   * Constructs a PointLight.
+   * @param position  the center point (origin) of the light.
+   * @param colour    the colour of the light (passed on to {@link Light(color)}).
+   * @param intensity the intensity of the light at the light's origin.
+   */
   PointLight(Vector3 position, color colour, float intensity) {
     super(colour);
     this.position = position;
@@ -25,7 +37,7 @@ class PointLight extends Light {
     return j;
   }
 
-  Vector3 getIncidentDirection(Vector3 point) {
+  Vector3 getDirection(Vector3 point) {
     return this.position.minus(point).normalize();
   }
 
@@ -38,8 +50,7 @@ class PointLight extends Light {
     return this.position.minus(point).getMagnitude();
   }
 
-  // gui_Tweakable methods
-
+  // implements Tweakable
   ArrayList<ParameterControl> getParameters() {
     ArrayList<ParameterControl> parameters = super.getParameters();
     parameters.add(0, new Vector3Parameter(this, "position", "Position", this.position, -5, 5));

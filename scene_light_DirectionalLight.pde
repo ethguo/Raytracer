@@ -1,8 +1,18 @@
+/**
+ * Represents a light source which illuminates the entire scene uniformly from one direction.
+ * Can be thought of as a point light at infinity, with no intensity falloff.
+ * In real life, the sun can usually be considered a directional light.
+ */
 class DirectionalLight extends Light {
   public Vector3 direction;
   public float intensity;
 
-
+  /**
+   * Constructs a DirectionalLight.
+   * @param direction the direction vector of the light.
+   * @param colour    the colour of the light (passed on to {@link Light(color)}).
+   * @param intensity the intensity of the light.
+   */
   DirectionalLight(Vector3 direction, color colour, float intensity) {
     super(colour);
     this.direction = direction.times(-1).normalize();
@@ -26,7 +36,7 @@ class DirectionalLight extends Light {
     return j;
   }
 
-  Vector3 getIncidentDirection(Vector3 point) {
+  Vector3 getDirection(Vector3 point) {
     return this.direction;
   }
   
@@ -38,8 +48,7 @@ class DirectionalLight extends Light {
     return Float.POSITIVE_INFINITY;
   }
 
-  // gui_Tweakable methods
-
+  // implements Tweakable
   ArrayList<ParameterControl> getParameters() {
     ArrayList<ParameterControl> parameters = super.getParameters();
     parameters.add(0, new Vector3Parameter(this, "direction", "Direction", this.direction, -5, 5));
