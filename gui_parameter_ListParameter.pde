@@ -15,7 +15,7 @@ public class ListParameter<T extends Tweakable> extends ParameterControl {
   /**
    * Creates a ListParameter.
    * @param obj          the object that contains the field to be controlled.
-   * @param fieldName    the name of the field on the object that this should control. Should be of type <code>ArrayList&lt;T&gt;</code>.
+   * @param fieldName    the name of the field on the object that this should control. Should be of type {@code ArrayList<T>}.
    * @param labelText    the text displayed beside the control.
    * @param items        the list of items to be shown in the dropdown menu.
    */

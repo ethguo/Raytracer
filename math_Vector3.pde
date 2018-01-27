@@ -18,7 +18,7 @@ class Vector3 extends JSONSerializable {
     this.z = z;
   }
 
-  /** Converts a Processing <code>color</code> primitive to a Vector3. */
+  /** Converts a Processing {@code color} primitive to a Vector3. */
   Vector3(color colour) {
     // From https://processing.org/reference/rightshift.html,
     // Processing color primitives can be treated as ints with 8-bit color components.
@@ -54,7 +54,7 @@ class Vector3 extends JSONSerializable {
     return s;
   }
 
-  /** Converts this Vector to a Processing <code>color</code> primitive. */
+  /** Converts this Vector to a Processing {@code color} primitive. */
   color toColorPrimitive() {
     return color(this.x*255, this.y*255, this.z*255);
   }

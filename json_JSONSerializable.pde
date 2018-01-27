@@ -1,6 +1,6 @@
 /**
  * Base class for all classes which can be saved into a JSON file. Supports serializing this object into a JSONObject
- * and deserializing a JSONObject back into a real java.lang.Object with the same data.
+ * and deserializing a JSONObject back into a real {@code java.lang.Object} with the same data.
  */
 class JSONSerializable {
   JSONSerializable() {}

@@ -51,7 +51,7 @@ abstract class SceneObject extends JSONSerializable implements Tweakable {
 
   /**
    * Determines if and where the given ray intersects this object.
-   * Will return a value <= 0 if ray does not intersect this object.
+   * Will return a value &lt;= 0 if ray does not intersect this object.
    * @param  ray the ray to be tested for intersection.
    * @return     the value of t at which the ray hits this object.
    */

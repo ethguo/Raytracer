@@ -16,7 +16,7 @@ public class FloatParameter extends ParameterControl {
   /**
    * Creates a FloatParameter with no slider.
    * @param obj          the object that contains the field to be controlled.
-   * @param fieldName    the name of the field on the object that this should control. Should be of type <code>float</code>.
+   * @param fieldName    the name of the field on the object that this should control. Should be of type {@code float}.
    * @param labelText    the text displayed beside the control.
    * @param initialValue the initial value of the textbox.
    */
@@ -28,7 +28,7 @@ public class FloatParameter extends ParameterControl {
   /**
    * Creates a FloatParameter with a slider.
    * @param obj          the object that contains the field to be controlled.
-   * @param fieldName    the name of the field on the object that this should control. Should be of type <code>float</code>.
+   * @param fieldName    the name of the field on the object that this should control. Should be of type {@code float}.
    * @param labelText    the text displayed beside the control.
    * @param initialValue the initial value of the textbox.
    * @param minValue     the lower bound of the slider.
@@ -44,7 +44,7 @@ public class FloatParameter extends ParameterControl {
   /**
    * Creates a FloatParameter with a slider.
    * @param obj          the object that contains the field to be controlled.
-   * @param fieldName    the name of the field on the object that this should control. Should be of type <code>float</code>.
+   * @param fieldName    the name of the field on the object that this should control. Should be of type {@code float}.
    * @param labelText    the text displayed beside the control.
    * @param initialValue the initial value of the textbox.
    * @param minValue     the lower bound of the slider.

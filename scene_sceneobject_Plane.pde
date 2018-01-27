@@ -11,7 +11,7 @@ class Plane extends SceneObject {
    * Constructs a Plane.
    * @param origin  a point on the plane.
    * @param normal  the normal vector of the plane.
-   * @param albedo  the albedo of the surface (passed on to {@link SceneObject(color)}).
+   * @param albedo  the albedo of the surface (passed on to {@link SceneObject(int)}).
    */
   Plane(Vector3 origin, Vector3 normal, color albedo) {
     super(albedo);
