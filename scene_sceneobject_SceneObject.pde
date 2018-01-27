@@ -21,8 +21,8 @@ abstract class SceneObject extends JSONSerializable implements Tweakable {
     return this.getClass().getSimpleName();
   }
 
-  ArrayList<Parameter> getParameters() {
-    ArrayList<Parameter> parameters = new ArrayList<Parameter>();
+  ArrayList<ParameterControl> getParameters() {
+    ArrayList<ParameterControl> parameters = new ArrayList<ParameterControl>();
     parameters.add(new Vector3Parameter(this, "albedo", "Albedo", this.albedo, true));
     return parameters;
   }

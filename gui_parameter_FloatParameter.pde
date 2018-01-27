@@ -1,4 +1,4 @@
-public class FloatParameter extends Parameter {
+public class FloatParameter extends ParameterControl {
   float value;
   float minValue;
   float maxValue;
@@ -64,13 +64,20 @@ public class FloatParameter extends Parameter {
   public void fieldChange(GTextField source, GEvent event) {
     if (event == GEvent.ENTERED || event == GEvent.LOST_FOCUS) {
       this.value = float(this.textField.getText());
-      if (this.hasSlider) {
-        // It is necessary to set a "propagatingChange" flag because for some reason,
-        // event handlers on GSliders are triggered even when the value is set manually using setValue.
-        this.propagatingChange = true;
-        this.slider.setValue(this.value);
+      if (Float.isNaN(this.value)) {
+        // If the user typed an invalid input, set the background to red.
+        this.textField.setLocalColor(7, #FF9999);
       }
-      this.updateValue(this.value * valueScaling);
+      else {
+        this.textField.setLocalColor(7, #FFFFFF);
+        if (this.hasSlider) {
+          // It is necessary to set a "propagatingChange" flag because for some reason,
+          // event handlers on GSliders are triggered even when the value is set manually using setValue.
+          this.propagatingChange = true;
+          this.slider.setValue(this.value);
+        }
+        this.updateValue(this.value * valueScaling);
+      }
     }
   }
 

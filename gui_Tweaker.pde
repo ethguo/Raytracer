@@ -1,5 +1,5 @@
 public class Tweaker {
-  ArrayList<Parameter> parameters;
+  ArrayList<ParameterControl> parameters;
 
   private PApplet applet;
   private GWindow tweakerWindow;
@@ -9,7 +9,7 @@ public class Tweaker {
 
   Tweaker(PApplet applet) {
     this.applet = applet;
-    this.parameters = new ArrayList<Parameter>();
+    this.parameters = new ArrayList<ParameterControl>();
   }
 
   void draw() {
@@ -33,7 +33,7 @@ public class Tweaker {
     this.loadButton.addEventHandler(this, "loadButtonClicked");
 
     int y = largePadding;
-    for(Parameter parameter : this.parameters) {
+    for(ParameterControl parameter : this.parameters) {
       int yPadding = parameter.createGUIControls(this.tweakerWindow, largePadding, y);
       y += yPadding + largePadding;
     }
@@ -46,7 +46,7 @@ public class Tweaker {
     this.updateTimer.start(1);
   }
 
-  void addParameter(Parameter parameter) {
+  void addParameter(ParameterControl parameter) {
     this.parameters.add(parameter);
   }
 

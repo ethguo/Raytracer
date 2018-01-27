@@ -1,4 +1,4 @@
-public class Vector3Parameter extends Parameter {
+public class Vector3Parameter extends ParameterControl {
   Vector3 vector;
   String labelText;
   float minValue;

@@ -1,11 +1,11 @@
-public abstract class Parameter {
+public abstract class ParameterControl {
   String labelText;
   Object obj;
   Field updateField;
 
   GLabel label;
 
-  Parameter(String labelText, Object obj, String fieldName) {
+  ParameterControl(String labelText, Object obj, String fieldName) {
     this.labelText = labelText;
   	this.obj = obj;
   	try {

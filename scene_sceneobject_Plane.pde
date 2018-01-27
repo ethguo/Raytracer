@@ -38,8 +38,8 @@ class Plane extends SceneObject {
 
   // gui_Tweakable methods
 
-  ArrayList<Parameter> getParameters() {
-    ArrayList<Parameter> parameters = super.getParameters();
+  ArrayList<ParameterControl> getParameters() {
+    ArrayList<ParameterControl> parameters = super.getParameters();
     parameters.add(new Vector3Parameter(this, "point", "Point", this.point, -5, 5));
     parameters.add(new Vector3Parameter(this, "normal", "Normal", this.normal, -1, 1));
     return parameters;

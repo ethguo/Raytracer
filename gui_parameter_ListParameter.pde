@@ -1,6 +1,6 @@
-public class ListParameter<T extends Tweakable> extends Parameter {
+public class ListParameter<T extends Tweakable> extends ParameterControl {
   ArrayList<T> items;
-  ArrayList<ArrayList<Parameter>> itemParameters;
+  ArrayList<ArrayList<ParameterControl>> itemParameters;
   int currentIndex;
 
   private GWindow window;
@@ -32,18 +32,18 @@ public class ListParameter<T extends Tweakable> extends Parameter {
     this.dropList.setItems(itemNames, 0);
     this.dropList.addEventHandler(this, "dropListChange");
 
-    // Build and store list of each item's Parameters, and simultaneously create the GUI controls,
+    // Build and store list of each item's ParameterControls, and simultaneously create the GUI controls,
     // keeping track of the largest (tallest) group of GUI controls.
-    this.itemParameters = new ArrayList<ArrayList<Parameter>>(this.items.size());
+    this.itemParameters = new ArrayList<ArrayList<ParameterControl>>(this.items.size());
     int maxHeight = 0;
     for (T item : this.items) {
-      ArrayList<Parameter> parameters = item.getParameters();
+      ArrayList<ParameterControl> parameters = item.getParameters();
 
       this.itemParameters.add(parameters);
 
       // Create all the GUI controls for this item, but invisible.
       int yOffset = 20 + smallPadding;
-      for (Parameter parameter : parameters) {
+      for (ParameterControl parameter : parameters) {
         yOffset += parameter.createGUIControls(window, x+largePadding, y+yOffset);
         yOffset += smallPadding;
         // Hide the controls for now.
@@ -68,8 +68,8 @@ public class ListParameter<T extends Tweakable> extends Parameter {
   }
 
   void setCurrentItemVisible(boolean visible) {
-    ArrayList<Parameter> parameters = this.itemParameters.get(this.currentIndex);
-    for (Parameter parameter : parameters)
+    ArrayList<ParameterControl> parameters = this.itemParameters.get(this.currentIndex);
+    for (ParameterControl parameter : parameters)
       parameter.setVisible(visible);
   }
 }
