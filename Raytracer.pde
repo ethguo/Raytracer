@@ -1,29 +1,30 @@
-import java.util.Map;
-import java.util.LinkedHashMap;
 import java.lang.reflect.Field;
 import java.lang.reflect.Constructor;
 import g4p_controls.*;
 
-String sceneFile = "";
+// Optionally override the default demo scene loaded at startup.
+private String sceneFile = "";
 
-final int renderWidth = 800;
-final int renderHeight = 800;
-final int tweakerWidth = 360;
-final int tweakerHeight = 800;
-final int largePadding = 20;
-final int smallPadding = 5;
-final int labelWidth = 100;
-final int sliderWidth = 100;
+// Constants for GUI sizing and spacing.
+public final int renderWidth = 800;
+public final int renderHeight = 800;
+public final int tweakerWidth = 360;
+public final int tweakerHeight = 800;
+public final int largePadding = 20;
+public final int smallPadding = 5;
+public final int labelWidth = 100;
+public final int sliderWidth = 100;
 
-Scene scene;
-Scene frozenScene;
-Tweaker tweaker;
+public Scene scene;
+public Scene frozenScene;
+public Tweaker tweaker;
 
-void settings() {
+public void settings() {
+  // the size command must be put in settings() instead of setup() to be able to pass variables as the arguments.
   size(renderWidth, renderHeight);
 }
 
-void setup() {
+public void setup() {
   int xWindow = (displayWidth - renderWidth - tweakerWidth) / 2;
   int yWindow = (displayHeight - renderHeight) / 2;
   surface.setLocation(xWindow, yWindow);
@@ -46,8 +47,8 @@ void setup() {
   noLoop();
 }
 
-void draw() {
-  int t0 = millis();
+public void draw() {
+  int t0 = millis(); // Store the time 
 
   loadPixels();
 
@@ -72,10 +73,16 @@ void draw() {
   updatePixels();
 
   int elapsedTime = millis() - t0;
-  println("Elapsed time: " + elapsedTime + " ms");
+  println("Image rendered. Elapsed time: " + elapsedTime + " ms");
 }
 
-Ray getPrimaryRay(int imageX, int imageY) {
+/**
+ * Creates a primary ray from the camera origin, through a specified pixel on the image plane. (See Fig. 1 in the design document)
+ * @param  imageX  x coordinate of pixel on the image plane.
+ * @param  imageY  y coordinate of pixel on the image plane.
+ * @return         a Ray with origin at the camera origin and direction pointing through the specified pixel on the image plane.
+ */
+private Ray getPrimaryRay(int imageX, int imageY) {
   float fovRad = frozenScene.fov * PI / 180;
 
   float aspectRatio = (float) width / height;
@@ -89,49 +96,62 @@ Ray getPrimaryRay(int imageX, int imageY) {
   return new Ray(frozenScene.cameraOrigin, direction);
 }
 
-public void saveScene(File file) {
-  if (file == null)
-    println("Selection canceled");
-  else {
-    String path = file.getAbsolutePath();
-
-    JSONObject j = scene.toJSONObject();
-    saveJSONObject(j, path);
-    println("Scene saved to " + path);
-  }
-}
-
-public void loadScene(File file) {
-  if (file == null)
-    println("Selection canceled");
-  else {
-    String path = file.getAbsolutePath();
-
-    JSONObject j = loadJSONObject(path);
-    scene = new Scene(j);
-    println("Scene loaded from " + path);
-
-    tweaker.destroy();
-    createTweaker();
-    redraw();
-  }
-}
-
-void createTweaker() {
+/**
+ * Creates the Tweaker window and adds the Scene controls.
+ */
+private void createTweaker() {
   tweaker = new Tweaker(this);
   
-  tweaker.addParameter(new FloatParameter(scene, "fov", "Field of View", scene.fov, 5.0, 175.0));
-  tweaker.addParameter(new FloatParameter(scene, "shadowBias", "Shadow Bias", scene.shadowBias));
   tweaker.addParameter(new Vector3Parameter(scene, "cameraOrigin", "Camera Origin", scene.cameraOrigin, -5, 5));
+  tweaker.addParameter(new FloatParameter(scene, "fov", "Field of View", scene.fov, 5.0, 175.0));
   tweaker.addParameter(new Vector3Parameter(scene, "skyColor", "Sky Color", scene.skyColor, true));
+  tweaker.addParameter(new FloatParameter(scene, "shadowBias", "Shadow Bias", scene.shadowBias));
   tweaker.addParameter(new ListParameter<SceneObject>(scene, "sceneObjects", "Scene Objects", scene.sceneObjects));
   tweaker.addParameter(new ListParameter<Light>(scene, "lights", "Lights", scene.lights));
 
   tweaker.draw();
 }
 
-/* Next:
-    * Design Document
-    * Specular - Phong/BRDF (https://www.scratchapixel.com/lessons/3d-basic-rendering/phong-shader-BRDF)
-    * Reflection and Refraction (https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel)
+/**
+ * Callback for the Save Scene button. This is called after the user selects a file or closes the file selection dialog.
+ * @param file passed by the file selection dialog.
  */
+public void saveScene(File file) {
+  // If the user canceled the selection, the file will be null.
+  if (file == null) {
+    println("Selection canceled");
+    return;
+  }
+
+  String path = file.getAbsolutePath();
+
+  // Serialize the current Scene into a new JSONObject and write it to the given file.
+  JSONObject j = scene.toJSONObject();
+  saveJSONObject(j, path);
+  println("Scene saved to " + path);
+}
+
+/**
+ * Callback for the Load Scene button. This is called after the user selects a file or closes the file selection dialog.
+ * @param file passed by the file selection dialog.
+ */
+public void loadScene(File file) {
+  // If the user canceled the selection, the file will be null.
+  if (file == null) {
+    println("Selection canceled");
+    return;
+  }
+
+  String path = file.getAbsolutePath();
+
+  // Read the JSONObject from the given file and deserialize it into a new Scene.
+  JSONObject j = loadJSONObject(path);
+  scene = new Scene(j);
+  println("Scene loaded from " + path);
+
+  // Recreate the tweaker window.
+  tweaker.destroy();
+  createTweaker();
+  // Redraw the scene.
+  redraw();
+}

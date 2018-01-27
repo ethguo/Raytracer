@@ -1,11 +1,20 @@
 class Scene extends JSONSerializable {
+  /** The camera field of view (in degrees). */
   public float fov;
+  /** The shadow bias (see footnote on page 3 of design document). */
   public float shadowBias;
+  /** The point at which all primary rays originate. */
   public Vector3 cameraOrigin;
+  /** The color that a pixel is set to if the primary ray did not hit anything. */
   public Vector3 skyColor;
+  /** A list of all the SceneObjects in the scene. */
   public ArrayList<SceneObject> sceneObjects;
+  /** A list of all the Lights in the scene. */
   public ArrayList<Light> lights;
 
+  /**
+   * Default constructor, will return a hard-coded demo scene.
+   */
   Scene() {
     this.fov = 75;
     this.shadowBias = 1e-4;
@@ -21,9 +30,13 @@ class Scene extends JSONSerializable {
     this.lights = new ArrayList<Light>();
     this.lights.add(new DirectionalLight(new Vector3(0, -1, 0), #FFFFFF, 0.25));
     this.lights.add(new PointLight(new Vector3(-4, 5, 0), #FFCC99, 2000));
-    this.lights.add(new PointLight(new Vector3(5, 1, -2), #3399FF, 500));
+    this.lights.add(new PointLight(new Vector3(4, 2, -2), #3399FF, 500));
   }
 
+  /**
+   * Construct a Scene object from the values in the JSONObject (JSON deserialization).
+   * @param j the JSONObject containing the values for this object.
+   */
   public Scene(JSONObject j) {
     super(j);
     this.fov = j.getFloat("fov");
@@ -45,7 +58,10 @@ class Scene extends JSONSerializable {
     return j;
   }
 
-  // Deep copies this object, by serializing it then deserializing it again.
+  /**
+   * Deep copies this object. This is accomplished by serializing it to JSON then deserializing it again.
+   * @return a deep copy of this Scene object.
+   */
   Scene copy() {
     return new Scene(this.toJSONObject());
   }

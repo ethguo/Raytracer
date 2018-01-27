@@ -127,8 +127,8 @@
         "type": "Color"
       },
       "position": {
-        "x": 5,
-        "y": 1,
+        "x": 4,
+        "y": 2,
         "z": -2,
         "type": "Vector3"
       },
