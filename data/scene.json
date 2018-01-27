@@ -119,7 +119,7 @@
       "type": "PointLight"
     },
     {
-      "intensity": 500,
+      "intensity": 400,
       "colour": {
         "red": 51,
         "green": 153,

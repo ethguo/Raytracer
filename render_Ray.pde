@@ -7,7 +7,7 @@ class Ray {
   float tHit;
 
   /**
-   * Constructor.
+   * Create a Ray given the origin point and direction vector.
    * @param origin    the origin point of the ray (point when t=0).
    * @param direction unit vector defining the direction of the ray.
    */
@@ -16,7 +16,7 @@ class Ray {
   }
 
   /**
-   * Constructor.
+   * Create a Ray given the origin point and direction vector.
    * @param origin      the origin point of the ray (point when t=0).
    * @param direction   unit vector defining the direction of the ray.
    * @param maxDistance (optional) any hits beyond this distance will be ignored. Also known as the far clipping plane.

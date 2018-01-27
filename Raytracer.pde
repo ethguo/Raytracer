@@ -6,7 +6,7 @@ import g4p_controls.*;
 private String sceneFile = "";
 
 // Constants for GUI sizing and spacing.
-public final int renderWidth = 800;
+public final int renderWidth = 1200; // If the windows do not fit on your screen, try reducing this to 800.
 public final int renderHeight = 800;
 public final int tweakerWidth = 360;
 public final int tweakerHeight = 800;
@@ -20,7 +20,7 @@ public Scene frozenScene;
 public Tweaker tweaker;
 
 public void settings() {
-  // the size command must be put in settings() instead of setup() to be able to pass variables as the arguments.
+  // the size command must be put in settings() instead of setup() to be able to pass variables for arguments.
   size(renderWidth, renderHeight);
 }
 
@@ -48,8 +48,9 @@ public void setup() {
 }
 
 public void draw() {
-  int t0 = millis(); // Store the time 
+  int t0 = millis();
 
+  // Prepare the pixels array.
   loadPixels();
 
   // Make a deep copy of the scene, so that it won't be affected if the scene is updated by the GUI in the middle of drawing.
@@ -57,21 +58,27 @@ public void draw() {
 
   for (int imageY = 0; imageY < height; imageY++) {
     for (int imageX = 0; imageX < width; imageX++) {
+      // For each pixel on the image, determine a primary ray for that pixel.
       Ray primaryRay = getPrimaryRay(imageX, imageY);
 
       boolean hit = primaryRay.trace(frozenScene);
-      if (hit) {
-        Vector3 pointShading = primaryRay.getPointShading(frozenScene);
-        pixels[imageY*width+imageX] = pointShading.toColorPrimitive();
-      }
-      else {
-        pixels[imageY*width+imageX] = frozenScene.skyColor.toColorPrimitive();
-      }
+
+      Vector3 pixelColor;
+      if (hit)
+        // If the primary hit something, get the shading at that point.
+        pixelColor = primaryRay.getPointShading(frozenScene);
+      else
+        // If the primary ray did not hit anything, set this pixel to the sky color.
+        pixelColor = frozenScene.skyColor;
+
+      pixels[imageY*width+imageX] = pixelColor.toColorPrimitive();
     }
   }
 
+  // Blit the updated pixels array onto the screen.
   updatePixels();
 
+  // Print how long it took to generate the image.
   int elapsedTime = millis() - t0;
   println("Image rendered. Elapsed time: " + elapsedTime + " ms");
 }

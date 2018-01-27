@@ -1,3 +1,6 @@
+/**
+ * Contains all the data necessary to render a scene.
+ */
 class Scene extends JSONSerializable {
   /** The camera field of view (in degrees). */
   public float fov;
@@ -28,7 +31,7 @@ class Scene extends JSONSerializable {
     this.lights = new ArrayList<Light>();
     this.lights.add(new DirectionalLight(new Vector3(0, -1, 0), #FFFFFF, 0.25));
     this.lights.add(new PointLight(new Vector3(-4, 5, 0), #FFCC99, 2000));
-    this.lights.add(new PointLight(new Vector3(4, 2, -2), #3399FF, 500));
+    this.lights.add(new PointLight(new Vector3(4, 2, -2), #3399FF, 400));
   }
 
   /**

@@ -1,5 +1,5 @@
 /**
- * This class is intended to represent an RGB color parameter for the purposes of JSON serialization. Internally, all colors represented as Vector3 objects.
+ * Represents an RGB color parameter for the purposes of JSON serialization only. Internally, all colors represented as Vector3 objects.
  */
 class Color extends JSONSerializable {
   int red, green, blue;
