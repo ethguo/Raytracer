@@ -8,8 +8,8 @@ class Sphere extends SceneObject {
   /**
    * Constructs a Sphere.
    * @param center  the center point of the sphere.
-   * @param radius  the sphere's radius.
-   * @param albedo  the albedo (passed on to {@link SceneObject(color)}).
+   * @param radius  the radius of the sphere.
+   * @param albedo  the albedo of the surface (passed on to {@link SceneObject(color)}).
    */
   Sphere(Vector3 center, float radius, color albedo) {
     super(albedo);
