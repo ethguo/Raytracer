@@ -27,6 +27,7 @@ class Ray {
     this.tHit = tMax;
   }
 
+  /** Generates a human-friendly String representation of this Ray for debugging purposes. */
   String toString() {
     return this.origin.toString() + " + t" + this.direction.toString();
   }
@@ -93,7 +94,7 @@ class Ray {
       // If the point isn't in shadow, compute the contribution to the total brightness, and add it to pointShading.
       if (!shadow) {
         float intensity = lightIntensity / PI * max(0, normal.dot(lightDirection));
-        Vector3 colour = light.colour.componentTimes(this.hitObject.albedo);
+        Vector3 colour = light.colour.hadamardTimes(this.hitObject.albedo);
 
         pointShading = pointShading.plus(colour.times(intensity));
       }
