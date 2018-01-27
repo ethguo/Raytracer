@@ -17,14 +17,14 @@ class Ray {
 
   /**
    * Constructor.
-   * @param origin    the origin point of the ray (point when t=0).
-   * @param direction unit vector defining the direction of the ray.
-   * @param tMax      (optional) far clipping plane - any hits beyond this distance will be ignored.
+   * @param origin      the origin point of the ray (point when t=0).
+   * @param direction   unit vector defining the direction of the ray.
+   * @param maxDistance (optional) any hits beyond this distance will be ignored. Also known as the far clipping plane.
    */
-  Ray(Vector3 origin, Vector3 direction, float tMax) {
+  Ray(Vector3 origin, Vector3 direction, float maxDistance) {
     this.origin = origin;
     this.direction = direction.normalize();
-    this.tHit = tMax;
+    this.tHit = maxDistance;
   }
 
   /** Generates a human-friendly String representation of this Ray for debugging purposes. */
@@ -44,22 +44,24 @@ class Ray {
 
   /**
    * Determines the closest SceneObject that this ray intersects with.
-   * The t value (distance to the camera), the SceneObject that was hit and the hit point are stored in this Ray object,
-   * for use in {@link getPointShading}.
+   * The t value (distance to the camera), the SceneObject that was hit, and the hit point are stored in this Ray object,
+   * for later use in getPointShading().
    * @param  scene  the Scene containing the SceneObjects to test for intersection.
    * @return        whether or not any object was hit.
    */
   boolean trace(Scene scene) {
     for (SceneObject sceneObject : scene.sceneObjects) {
+      // Ask each SceneObject whether this ray intersects with it.
       float tHitObject = sceneObject.rayIntersect(this);
       if (tHitObject > 0 && tHitObject < this.tHit) {
+        // If the hit distance is positive and does not exceed the max distance, store it.
         this.tHit = tHitObject;
         this.hitObject = sceneObject;
       }
     }
 
     if (this.hitObject != null) {
-      // If an object was hit, 
+      // If an object was hit, get (and store) the point in 3D space where it was hit.
       this.hitPoint = this.getPoint(this.tHit);
       return true;
     }
@@ -85,7 +87,7 @@ class Ray {
 
       Vector3 shadowRayOrigin = this.hitPoint.plus(normal.times(scene.shadowBias));
 
-      // the tMax of the shadow ray is set to the distance to the light, to prevent the ray from "overshooting"
+      // the maxDistance of the shadow ray is set to the distance to the light, to prevent the ray from "overshooting"
       // a directional light and hitting an object beyond the light, which would make it think that the point is in 
       // shadow when it isn't.
       Ray shadowRay = new Ray(shadowRayOrigin, lightDirection, lightDistance);
